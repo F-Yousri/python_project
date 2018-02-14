@@ -1,7 +1,8 @@
 # python_project
 
 Team Members:
+Ahmed Helal
 Fady El-Gawly
+Fatma Kamel
 Fahd Yousri
-Kamal Magdy
-Mina Ibrahim
+Yasmin Abdallah Gaber
