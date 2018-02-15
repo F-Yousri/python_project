@@ -13,14 +13,17 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
-from django.contrib import admin
-from AuthApp import views
 
+from django.conf.urls import include, url
+from .import views
+#app/..............
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^login_form$',views.login_form),
-    url(r'^logged_in_only$',views.logged_in_only),
-    url(r'^register$',views.resgister),
-    url(r'^bloggawy/', include('bloggawy.urls')) ,
+    # url(r'^$', views.index),#http://127.0.0.1:8000/opensource/
+    # url(r'^home$', views.home),#http://127.0.0.1:8000/opensource/home
+    # url(r'^(?P<post_id>[0-9]+)/$',views.name),#http://127.0.0.1:8000/opensource/1/ ... details for student
+    # url(r'^(?P<category_id>[0-9]+)/age$',views.age),#http://127.0.0.1:8000/opensource/99/age
+    # url(r'^allstudents/$',views.allstudents),#http://127.0.0.1:8000/opensource/allstudents/
+    # url(r'^student/new/$',views.newstudent),
+
 ]
+
