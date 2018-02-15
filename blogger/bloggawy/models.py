@@ -4,14 +4,14 @@ from django.db.models import ImageField
 
 
 class Category(models.Model):
-    cat_name = models.CharField(max_length=200)
+    category_name = models.CharField(max_length=200)
     subscribers = models.ManyToManyField(User)  # subscribe
 
 # we need this table Manually
 class Post(models.Model):
     post_title = models.CharField(max_length=50)
     post_content = models.CharField(max_length=2000)
-    post_photo = ImageField(upload_to='static/bloggawy/images', height_field=None, width_field=None, max_length=100)
+    post_photo = ImageField(upload_to='static/bloggawy/images',default="static/bloggawy/images/testphoto.jpg")
     post_time = models.TimeField(auto_now_add=True)  # generate time automatic
     # we can make enhancement here
     post_user = models.ForeignKey(User)
@@ -43,7 +43,7 @@ class Curse(models.Model):
 class Like(models.Model):
     like_user = models.ForeignKey(User)
     like_post = models.ForeignKey(Post)
-    like_type = models.BooleanField()  # False >>dislike or True >>like
+    like_type = models.BooleanField(default=True)  # False >>dislike or True >>like
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=100)

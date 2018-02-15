@@ -19,8 +19,5 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^login_form$',views.login_form),
-    url(r'^logged_in_only$',views.logged_in_only),
-    url(r'^register$',views.resgister),
     url(r'^bloggawy/', include('bloggawy.urls')) ,
 ]
