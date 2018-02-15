@@ -17,6 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^bloggawy/',include("bloggawy.urls") )
+    url(r'^posts$', views.all_posts),
+    url(r'^(?P<p_id>[0-9]+)$', views.post_details),
+    url(r'^post/new$', views.new_post),
 ]
