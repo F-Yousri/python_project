@@ -18,4 +18,8 @@ def login_form(request) :
 			login(request,user)
 			return HttpResponseRedirect("/bloggawy/home")
 
-	return render(request,'login_form.html') 		
+	return render(request,'login_form.html')
+
+@login_required
+def logged_in_only(request):
+    return HttpResponse('you are authenticated')
