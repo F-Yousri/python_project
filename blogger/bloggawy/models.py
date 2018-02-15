@@ -5,7 +5,6 @@ from django.db import models
 
 class User(models.Model):
     user_name = models.CharField(max_length=200)
-    user_name = models.CharField(max_length=200)
     user_password = models.CharField(max_length=200)
     user_email = models.EmailField(max_length=254)
     user_blocked = models.BooleanField(default=True)  # False >>blocked user or True >>unblocked user
@@ -17,6 +16,7 @@ class Category(models.Model):
     cat_users = models.ManyToManyField(User)  # subscribe
 
 
+# we need this table Manually
 class Post(models.Model):
     post_text = models.CharField(max_length=2000)
     post_time = models.TimeField(auto_now_add=True)  # generate time automatic
@@ -33,20 +33,23 @@ class Comment(models.Model):
     comment_post = models.ForeignKey(Post)
 
 
-class Replay(models.Model):
-    replay_text = models.CharField(max_length=1000)
-    replay_time = models.TimeField(auto_now_add=True)
+class Reply(models.Model):
+    reply_text = models.CharField(max_length=1000)
+    reply_time = models.TimeField(auto_now_add=True)
     # we can make enhancement here
-    replay_user = models.ForeignKey(User)
-    replay_comments = models.ManyToManyField(Comment)
+    reply_user = models.ForeignKey(User)
+    reply_comments = models.ManyToManyField(Comment)
 
 
 class Curse(models.Model):
     curse_text = models.CharField(max_length=20)
     curse_comments = models.ManyToManyField(Comment)
-    curse_replays = models.ManyToManyField(Replay)
+    curse_replies = models.ManyToManyField(Reply)
 
 
+# we need this table Manually
+# we handle error of the count like by code
+# we will prevent user from make more than one like at a time
 class Like(models.Model):
     like_user = models.ForeignKey(User)
     like_post = models.ForeignKey(Post)
