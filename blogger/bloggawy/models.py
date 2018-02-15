@@ -1,51 +1,37 @@
 from django.db import models
-
-
-# Edit By Ahmed Helal Ahmed.
-
-class User(models.Model):
-    user_name = models.CharField(max_length=200)
-    user_password = models.CharField(max_length=200)
-    user_email = models.EmailField(max_length=254)
-    user_blocked = models.BooleanField(default=True)  # False >>blocked user or True >>unblocked user
-    user_admin = models.BooleanField(default=False)  # False >>user or True >>admin
-
+from django.contrib.auth.models import User
+from django.db.models import ImageField
 
 class Category(models.Model):
     cat_name = models.CharField(max_length=200)
-    cat_users = models.ManyToManyField(User)  # subscribe
-
+    subscribers = models.ManyToManyField(User)  # subscribe
 
 # we need this table Manually
 class Post(models.Model):
-    post_text = models.CharField(max_length=2000)
+    post_title = models.CharField(max_length=50)
+    post_content = models.CharField(max_length=2000)
+    post_photo = ImageField(upload_to='static/bloggawy/images', height_field=None, width_field=None, max_length=100)
     post_time = models.TimeField(auto_now_add=True)  # generate time automatic
     # we can make enhancement here
     post_user = models.ForeignKey(User)
     post_categories = models.ManyToManyField(Category)
 
-
 class Comment(models.Model):
-    comment_text = models.CharField(max_length=1000)
+    comment_content = models.CharField(max_length=1000)
     comment_time = models.TimeField(auto_now_add=True)
     # we can make enhancement here
     comment_user = models.ForeignKey(User)
     comment_post = models.ForeignKey(Post)
 
-
 class Reply(models.Model):
-    reply_text = models.CharField(max_length=1000)
+    reply_content = models.CharField(max_length=1000)
     reply_time = models.TimeField(auto_now_add=True)
     # we can make enhancement here
     reply_user = models.ForeignKey(User)
     reply_comments = models.ManyToManyField(Comment)
 
-
 class Curse(models.Model):
-    curse_text = models.CharField(max_length=20)
-    curse_comments = models.ManyToManyField(Comment)
-    curse_replies = models.ManyToManyField(Reply)
-
+    curse_content = models.CharField(max_length=20)
 
 # we need this table Manually
 # we handle error of the count like by code
@@ -53,7 +39,7 @@ class Curse(models.Model):
 class Like(models.Model):
     like_user = models.ForeignKey(User)
     like_post = models.ForeignKey(Post)
-
+    like_type = models.BooleanField()  # False >>dislike or True >>like
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=100)
