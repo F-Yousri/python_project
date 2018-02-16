@@ -20,7 +20,8 @@ from . import views
 
 urlpatterns = [
    
-    url(r'^registeration$',views.registeration)
+    url(r'^registeration$',views.registeration),
+    url(r'^adminpanel$',views.adminpanel)
     
 
 ]

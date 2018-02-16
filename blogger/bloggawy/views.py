@@ -7,21 +7,7 @@ from django.contrib.auth import login, authenticate
 from  .forms import SignUpForm
 from django.shortcuts import render, redirect
 
-# Create your views here.
-'''def all_posts(request):
-	return render(request,"posts/all_p.html",{"all_posts":Post.objects.all()})
-def post_details(request, p_id):
-	return render (request,"posts/post_page.html",{"post":Post.objects.get(id=p_id)})
-def new_post(request):
-	form=PostForm()
-	if request.method=="POST":
-		form=PostForm(request.POST)
-		if form.is_valid():
-			obj = form.save(commit=False)
-		    obj.user_id = request.user
-		    obj.time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-			return HttpResponseRedirect('/bloggawy/posts')
-	return render(request,"posts/new.html",{"form":form})'''
+
 
 def registeration(request):
 
@@ -41,20 +27,11 @@ def registeration(request):
     else:
     	form = SignUpForm()
     return render(request, 'web/registration.html',{"form": form})
+
+def adminpanel(request):
+    return(request,'admin/adminpanel.html')
+
       
     	
 
 
-# To send variables implecitly
-# form = CreateASomething(request.POST)
-# if form.is_valid():
-#     obj = form.save(commit=False)
-#     obj.field1 = request.user
-#     obj.save()
-
-
-# To check for Authentication
-# if request.user.is_authenticated:
-#     ... # Do something for logged-in users.
-# else:
-#     ... # Do something for anonymous users.
