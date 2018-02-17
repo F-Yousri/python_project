@@ -1,0 +1,9 @@
+<form method='post' enctype="multipart/form-data"> {% csrf_token %}
+{{form.as_p}}
+    <select name="category_id_id">
+    {% for cat in all_cats %}
+        <option value="{{cat}}" >{{ cat.category_name }}</option>
+        {% endfor %}
+    </select>
+<button type='submit'>save</button>	
+</form>

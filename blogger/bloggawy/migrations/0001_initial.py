@@ -2,11 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -14,53 +16,52 @@ class Migration(migrations.Migration):
             name='Category',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('cat_name', models.CharField(max_length=200)),
+                ('category_name', models.CharField(max_length=200)),
+                ('subscribers', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Comment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('comment_text', models.CharField(max_length=1000)),
-                ('time', models.TimeField()),
-                ('reply_text', models.CharField(max_length=1000)),
+                ('comment_content', models.CharField(max_length=1000)),
+                ('comment_time', models.TimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
-            name='CommentCurses',
+            name='Curse',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('comment_id', models.ForeignKey(to='bloggawy.Comment')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Curses',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('curses_text', models.CharField(max_length=500)),
+                ('curse_content', models.CharField(max_length=20)),
             ],
         ),
         migrations.CreateModel(
             name='Like',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('number_likes', models.IntegerField()),
+                ('like_type', models.BooleanField(default=True)),
             ],
         ),
         migrations.CreateModel(
             name='Post',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('post_text', models.CharField(max_length=2000)),
-                ('time', models.TimeField(auto_now_add=True)),
-                ('cat_id', models.ForeignKey(to='bloggawy.Category')),
+                ('post_title', models.CharField(max_length=50)),
+                ('post_content', models.CharField(max_length=2000)),
+                ('post_photo', models.ImageField(default=b'static/bloggawy/images/testphoto.jpg', upload_to=b'static/bloggawy/images')),
+                ('post_time', models.TimeField(auto_now_add=True)),
+                ('category_id', models.ForeignKey(to='bloggawy.Category')),
+                ('post_user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
-            name='PostTag',
+            name='Reply',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('post_id', models.ForeignKey(to='bloggawy.Post')),
+                ('reply_content', models.CharField(max_length=1000)),
+                ('reply_time', models.TimeField(auto_now_add=True)),
+                ('reply_comments', models.ManyToManyField(to='bloggawy.Comment')),
+                ('reply_user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
@@ -68,59 +69,27 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('tag_name', models.CharField(max_length=100)),
+                ('tag_posts', models.ManyToManyField(to='bloggawy.Post')),
             ],
-        ),
-        migrations.CreateModel(
-            name='User',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('user_name', models.CharField(max_length=200)),
-                ('password', models.CharField(max_length=200)),
-                ('email', models.CharField(max_length=200)),
-                ('blocked', models.BooleanField(default=1)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='UserCat',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('cat_id', models.ForeignKey(to='bloggawy.Category')),
-                ('user_id', models.ForeignKey(to='bloggawy.User')),
-            ],
-        ),
-        migrations.AddField(
-            model_name='posttag',
-            name='tag_id',
-            field=models.ForeignKey(to='bloggawy.Tag'),
-        ),
-        migrations.AddField(
-            model_name='post',
-            name='user_id',
-            field=models.ForeignKey(to='bloggawy.User'),
         ),
         migrations.AddField(
             model_name='like',
-            name='post_id',
+            name='like_post',
             field=models.ForeignKey(to='bloggawy.Post'),
         ),
         migrations.AddField(
             model_name='like',
-            name='user_id',
-            field=models.ForeignKey(to='bloggawy.User'),
-        ),
-        migrations.AddField(
-            model_name='commentcurses',
-            name='curses_id',
-            field=models.ForeignKey(to='bloggawy.Curses'),
+            name='like_user',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='comment',
-            name='post_id',
+            name='comment_post',
             field=models.ForeignKey(to='bloggawy.Post'),
         ),
         migrations.AddField(
             model_name='comment',
-            name='user_id',
-            field=models.ForeignKey(to='bloggawy.User'),
+            name='comment_user',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
     ]

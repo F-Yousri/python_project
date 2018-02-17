@@ -77,7 +77,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bloggawy',
         'USER': 'root',
-        'PASSWORD': 'sql@iti123',
+        'PASSWORD': '751991',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -99,4 +99,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = os.path.join(BASE_DIR, 'bloggawy/static/bloggawy/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'bloggawy/static/bloggawy/images')
+MEDIA_URL = '/bloggawy/'

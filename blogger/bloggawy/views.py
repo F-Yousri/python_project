@@ -1,24 +1,30 @@
 from django.shortcuts import render
 from bloggawy.models import Post
+from bloggawy.models import Category
 from .forms import PostForm
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from time import gmtime, strftime
 
 # Create your views here.
 def all_posts(request):
-	return render(request,"posts/all_p.html",{"all_posts":Post.objects.all()})
+	return render(request,"web/post_page.html",{"all_posts":Post.objects.all()})
 def post_details(request, p_id):
 	return render (request,"posts/post_page.html",{"post":Post.objects.get(id=p_id)})
 def new_post(request):
 	form=PostForm()
 	if request.method=="POST":
-		form=PostForm(request.POST)
+		form=PostForm(request.POST,request.FILES)
 		if form.is_valid():
 			obj = form.save(commit=False)
-		     obj.user_id = request.user
-		    obj.time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+			obj.post_user_id = 1
+			# return HttpResponse(obj.post_photo)
+			# return HttpResponse(str(obj.post_user_id) +' &'+ obj.post_content)
+			#obj.post_user_id=request.user.id
+			obj.time = strftime("%a, %d %b %Y %H:%M:%S", gmtime())
+			obj.save()
 			return HttpResponseRedirect('/bloggawy/posts')
-	return render(request,"posts/new.html",{"form":form})
+	return render(request,"posts/new.html",{"form":form, "all_cats":Category.objects.all()})
 
 
 

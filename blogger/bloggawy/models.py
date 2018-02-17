@@ -5,16 +5,18 @@ from django.db.models import ImageField
 class Category(models.Model):
     category_name = models.CharField(max_length=200)
     subscribers = models.ManyToManyField(User)  # subscribe
+    def __str__(self):
+        return  self.category_name
 
 # we need this table Manually
 class Post(models.Model):
     post_title = models.CharField(max_length=50)
     post_content = models.CharField(max_length=2000)
-    post_photo = ImageField(upload_to='static/bloggawy/images',default="static/bloggawy/images/testphoto.jpg")
+    post_photo = ImageField(upload_to='uploads/',default="static/bloggawy/images/testphoto.jpg")
     post_time = models.TimeField(auto_now_add=True)  # generate time automatic
     # we can make enhancement here
     post_user = models.ForeignKey(User)
-    post_categories = models.ManyToManyField(Category)
+    category_id = models.ForeignKey(Category)
 
 class Comment(models.Model):
     comment_content = models.CharField(max_length=1000)
@@ -22,6 +24,7 @@ class Comment(models.Model):
     # we can make enhancement here
     comment_user = models.ForeignKey(User)
     comment_post = models.ForeignKey(Post)
+
 
 class Reply(models.Model):
     reply_content = models.CharField(max_length=1000)

@@ -1,13 +1,12 @@
 from django import forms
-<<<<<<< HEAD
 from .models import Post
 
 class PostForm(forms.ModelForm):
 	class Meta:
 		model=Post
-		fields=("text")
+		fields=('post_title','post_content','post_photo','category_id')
 		widgets = {
-            'text': forms.Textarea(attrs={'cols': 80, 'rows': 20})
+            'post_content': forms.Textarea(attrs={'cols': 80, 'rows': 20})
         }
 	
 
