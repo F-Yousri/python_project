@@ -17,6 +17,7 @@ class Post(models.Model):
     # we can make enhancement here
     post_user = models.ForeignKey(User)
     category_id = models.ForeignKey(Category)
+    # tags = models.ManyToManyField(Tag)
 
 class Comment(models.Model):
     comment_content = models.CharField(max_length=1000)
@@ -47,3 +48,10 @@ class Like(models.Model):
 class Tag(models.Model):
     tag_name = models.CharField(max_length=100)
     tag_posts = models.ManyToManyField(Post)
+
+    # def __init__(self):
+        # if Tag.objects.get(name):
+        #     pass
+            # self=Tag.objects.get(name)[0]
+        # else:
+        # self.tag_name=name
