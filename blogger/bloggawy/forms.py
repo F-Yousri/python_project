@@ -3,7 +3,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.models import User
-
+from  .models import Category
+from  .models import Post
 
 class SignUpForm(UserCreationForm):
    
@@ -13,16 +14,25 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
+class CategoryForm(forms.ModelForm):
+   
+  
+    class Meta:
+        model = Category
+        fields = ('category_name',)
+
+
+
+class PostForm(forms.ModelForm):
+   
+  
+    class Meta:
+        model = Post
+        fields = ('post_content','post_photo','post_title',)
+
+
 
 	
 
-# class ModelName(forms.ModelForm):
-#     class Meta:
-#         model = ModelName  # modify
-#         fields = ('fieldname', 'fieldname', 'fieldname', 'fieldname')
-#         widgets = {
-#             'fieldname': forms.TextInput(attrs={'class': 'form-control'}),
-#             'fieldname': forms.TextInput(attrs={'class': 'form-control'}),
-#             'fieldname': forms.TextInput(attrs={'class': 'form-control'}),
-#         }
+
 

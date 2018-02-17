@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import ImageField
+from django.db.models import DateTimeField
 
 class Category(models.Model):
     category_name = models.CharField(max_length=200)
@@ -10,7 +11,7 @@ class Category(models.Model):
 class Post(models.Model):
     post_title = models.CharField(max_length=50)
     post_content = models.CharField(max_length=2000)
-    post_photo = ImageField(upload_to='static/bloggawy/images',default="static/bloggawy/images/testphoto.jpg")
+    post_photo = models.ImageField(upload_to='static/Media',default="1.jpg")
     post_time = models.TimeField(auto_now_add=True)  # generate time automatic
     # we can make enhancement here
     post_user = models.ForeignKey(User)
