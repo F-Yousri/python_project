@@ -5,7 +5,8 @@ from django.db.models import ImageField
 class Category(models.Model):
     category_name = models.CharField(max_length=200)
     subscribers = models.ManyToManyField(User)  # subscribe
-
+    def __str__(self, *args, **kwargs):
+        return self.category_name
 # we need this table Manually
 class Post(models.Model):
     post_title = models.CharField(max_length=50)
@@ -14,14 +15,21 @@ class Post(models.Model):
     post_time = models.TimeField(auto_now_add=True)  # generate time automatic
     # we can make enhancement here
     post_user = models.ForeignKey(User)
-    post_categories = models.ManyToManyField(Category)
+    post_category = models.ForeignKey(Category,null=True)
+    def __str__(self, *args, **kwargs):
+        return self.post_title
 
 class Comment(models.Model):
     comment_content = models.CharField(max_length=1000)
     comment_time = models.TimeField(auto_now_add=True)
     # we can make enhancement here
-    comment_user = models.ForeignKey(User)
-    comment_post = models.ForeignKey(Post)
+    comment_user = models.ForeignKey(User,null=True)
+    comment_post = models.ForeignKey(Post,null=True)
+    def __str__(self, *args, **kwargs):
+        return self.comment_content
+
+
+
 
 class Reply(models.Model):
     reply_content = models.CharField(max_length=1000)
@@ -29,9 +37,13 @@ class Reply(models.Model):
     # we can make enhancement here
     reply_user = models.ForeignKey(User)
     reply_comments = models.ManyToManyField(Comment)
+    def __str__(self, *args, **kwargs):
+        return self.reply_content
 
 class Curse(models.Model):
     curse_content = models.CharField(max_length=20)
+    def __str__(self, *args, **kwargs):
+        return self.curse_content
 
 # we need this table Manually
 # we handle error of the count like by code
@@ -39,8 +51,12 @@ class Curse(models.Model):
 class Like(models.Model):
     like_user = models.ForeignKey(User)
     like_post = models.ForeignKey(Post)
-    like_type = models.BooleanField(default=True)  # False >>dislike or True >>like
+    like_type = models.BooleanField(default=None)  # False >>dislike or True >>like
+    def __str__(self, *args, **kwargs):
+        return self.like_post
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=100)
     tag_posts = models.ManyToManyField(Post)
+    def __str__(self, *args, **kwargs):
+        return self.tag_name
