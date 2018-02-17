@@ -4,10 +4,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login
 from django.http import HttpResponseRedirect
 from bloggawy.models import Post
-from .forms import PostForm
+# from .forms import PostForm
 from django.http import HttpResponseRedirect
 from time import gmtime, strftime
+from django.contrib.auth import logout as django_logout
 # Create your views here.
+
+
+def home(request):
+	# return HttpResponseRedirect("/user/home.html")
+	return render(request,"web/home2.html")
+
+@login_required
+def logout(request):
+    django_logout(request)
+    return HttpResponseRedirect("/bloggawy/home")
+    
 
 def login_form(request) :
 
@@ -19,14 +31,21 @@ def login_form(request) :
 		user = authenticate(username = name, password=password)
 
 		if user is not None:
-			login(request,user)
-			return HttpResponseRedirect("/bloggawy/home")
+			if user.is_active :
+				login(request,user)			
+				return HttpResponseRedirect("/bloggawy/home")
+		else:
+			st = 0
+			context = {"login" : st}
+			return render(request,'web/login_form.html',context)		
 
-	return render(request,'login_form.html')
+	return render(request,'web/login_form.html')
 
-@login_required
-def logged_in_only(request):
-    return HttpResponse('you are authenticated')
+# @login_required
+# def logged_in_only(request):
+# 	# if request.user.is_authenticated():
+# 	context = {"logged" :1}
+# 	return render(request,'web/home2.html',context)
 
 
 # Create your views here.
@@ -40,8 +59,8 @@ def new_post(request):
 		form=PostForm(request.POST)
 		if form.is_valid():
 			obj = form.save(commit=False)
-		     obj.user_id = request.user
-		    obj.time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+			obj.user_id = request.user
+			obj.time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
 			return HttpResponseRedirect('/bloggawy/posts')
 	return render(request,"posts/new.html",{"form":form})
 

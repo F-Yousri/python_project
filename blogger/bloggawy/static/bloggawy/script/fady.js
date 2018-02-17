@@ -1,7 +1,3 @@
- <!-- jQuery first then Bootstrap JS -->
-	<script src="jquery.min.js"></script>
-	<script src="bootstrap.bundle.min.js"></script>
-	<script>
 		window.onscroll = function() {scrollFunction()};
 
 	function scrollFunction() {
@@ -17,4 +13,5 @@
 	    document.body.scrollTop = 0; // For Safari
 	    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 	} 
-	</script>
+
+	

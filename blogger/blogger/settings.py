@@ -116,5 +116,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = os.path.join(BASE_DIR,"blogger/bloggawy/static/")
-LOGIN_URL = os.path.join(BASE_DIR,"/login/login_form")
+STATIC_URL = os.path.join(BASE_DIR,"blogger/bloggawy/static/bloggawy/")
+LOGIN_URL = os.path.join(BASE_DIR,"/blogger/bloggawy/templates/web/login_form")
