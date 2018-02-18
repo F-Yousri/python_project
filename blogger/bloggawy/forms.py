@@ -1,7 +1,7 @@
 from django import forms
 from .models import Post
 from .models import Comment
-
+from .models import Like
 
 # class PostForm(forms.ModelForm):
 # 	class Meta:
@@ -31,6 +31,10 @@ class CommentForm(forms.ModelForm):
 
             }),
         }
+
+
+
+
 
 # class ModelName(forms.ModelForm):
 #     class Meta:

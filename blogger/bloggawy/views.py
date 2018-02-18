@@ -5,7 +5,55 @@ from .models import Comment
 # from .forms import PostForm
 from .forms import CommentForm
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from time import gmtime, strftime
+from .models import Like
+from .models import Post
+from django.core.exceptions import ObjectDoesNotExist
+
+
+# from django.http import JsonResponse
+
+# just for store the like in the model
+def like(request, post_id):
+    current_post = Post.objects.get(id=post_id)
+    try:
+        current_like_object = Like.objects.get(like_post=current_post)
+        if current_like_object.like_type == False:
+            current_like_object.like_type=True
+            current_like_object.save()
+        else:
+            current_like_object.delete()
+    except ObjectDoesNotExist:
+        like_object = Like.objects.create(
+            like_user=request.user,
+            like_post=current_post,
+            like_type=True
+        )
+        like_object.save()
+
+    return HttpResponse("Like Done")
+
+
+# just for store the dislike in the model
+def dislike(request, post_id):
+    current_post = Post.objects.get(id=post_id)
+    try:
+        current_like_object = Like.objects.get(like_post=current_post)
+        if current_like_object.like_type == True:
+            current_like_object.like_type=False
+            current_like_object.save()
+        else:
+            current_like_object.delete()
+    except ObjectDoesNotExist:
+        like_object = Like.objects.create(
+            like_user=request.user,
+            like_post=current_post,
+            like_type=False
+        )
+        like_object.save()
+
+    return HttpResponse("Dislike Done");
 
 
 # Create your views here.
@@ -17,36 +65,45 @@ def post_details(request, p_id):
     return render(request, "posts/post_page.html", {"post": Post.objects.get(id=p_id)})
 
 
-# def new_post(request):
-# 	form=PostForm()
-# 	if request.method=="POST":
-# 		form=PostForm(request.POST)
-# 		if form.is_valid():
-# 			obj = form.save(commit=False)
-# 		    obj.user_id = request.user
-# 		    obj.time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-# 			return HttpResponseRedirect('/bloggawy/posts')
-# 	return render(request,"posts/new.html",{"form":form})
-
 def index(request):
-    return render(request, "web/index.html")#http://127.0.0.1:8000/opensource/
+    return render(request, "web/index.html")  # http://127.0.0.1:8000/opensource/
+
+
 def success(request):
     return render(request, "web/success.html")
+
+
 def error(request):
     return render(request, "web/error.html")
+
+
+# view post
 def comment(request, post_id):
     comment_form = CommentForm()
     current_post = Post.objects.get(id=post_id)
+    current_user = request.user
     if request.method == "POST":
-        comment_form = CommentForm(request.POST,initial={'comment_post_id': post_id})
+        comment_form = CommentForm(request.POST, initial={'comment_post_id': post_id})
         if comment_form.is_valid():
-            #comment_form.save()
-            #current_user = User.objects.get(id=1)
-            current_user = request.user
-            comment_form.CommentSave(current_post,current_user)
+            # comment_form.save()
+            # current_user = User.objects.get(id=1)
+            comment_form.CommentSave(current_post, current_user)
             return HttpResponseRedirect("success")
     comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-comment_time')
-    context = {"form": comment_form,"comments":comments_of_post}
+    try:
+        like_status = Like.objects.get(like_post=current_post, like_user=current_user)
+    except ObjectDoesNotExist:
+        like_status = None
+
+    like_count = Like.objects.filter(like_type=True).count()
+    dislike_count = Like.objects.filter(like_type=False).count()
+    context = {
+        "form": comment_form,
+        "comments": comments_of_post,
+        "like": like_status,
+        "likes": like_count,
+        "dislikes": dislike_count,
+    }
     return render(request, "web/post_page.html", context)
 
 # To send variables implecitly

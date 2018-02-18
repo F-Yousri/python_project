@@ -15,16 +15,19 @@ Including another URLconf
 """
 
 from django.conf.urls import include, url
-from .import views
+from . import views
 
 urlpatterns = [
     url(r'^$', views.index),  # http://127.0.0.1:8000/opensource/
     # url(r'^posts$', views.all_posts),
     # url(r'^(?P<post_id>[0-9]+)$', views.post_details),
-#    url(r'^post/new$', views.new_post),
+    #    url(r'^post/new$', views.new_post),
     url(r'^post/(?P<post_id>[0-9]+)$', views.comment),
-    url(r'.success.', views.success),#for success
-    url(r'.error.', views.error),#for errors
+    url(r'^post/(?P<post_id>[0-9]+)/like/$', views.like),  # for like
+    url(r'^post/(?P<post_id>[0-9]+)/dislike/$', views.dislike),  # for dislike
+    url(r'.success.', views.success),  # for success
+    url(r'.error.', views.error),  # for errors
+
     # url(r'^$', views.index),#http://127.0.0.1:8000/opensource/
     # url(r'^home$', views.home),#http://127.0.0.1:8000/opensource/home
     # url(r'^(?P<post_id>[0-9]+)/$',views.name),#http://127.0.0.1:8000/opensource/1/ ... details for student
