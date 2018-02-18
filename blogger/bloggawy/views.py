@@ -89,7 +89,8 @@ def comment(request, post_id):
             # current_user = User.objects.get(id=1)
             comment_form.CommentSave(current_post, current_user)
             return HttpResponseRedirect("success")
-    comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-comment_time')
+        #I have fix some problem here to display the recent comment in the top of comments
+    comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-id')
     try:
         like_status = Like.objects.get(like_post=current_post, like_user=current_user)
     except ObjectDoesNotExist:
