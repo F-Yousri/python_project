@@ -17,25 +17,38 @@ class Post(models.Model):
     # we can make enhancement here
     post_user = models.ForeignKey(User)
     category_id = models.ForeignKey(Category)
-    # tags = models.ManyToManyField(Tag)
+    # we can make enhancement here
+    post_category = models.ForeignKey(Category,null=True)
+    def __str__(self):
+        return self.post_title
+
 
 class Comment(models.Model):
     comment_content = models.CharField(max_length=1000)
-    comment_time = models.TimeField(auto_now_add=True)
+    comment_time = models.DateTimeField(auto_now_add=True)
     # we can make enhancement here
-    comment_user = models.ForeignKey(User)
-    comment_post = models.ForeignKey(Post)
+    comment_user = models.ForeignKey(User,null=True)
+    comment_post = models.ForeignKey(Post,null=True)
+    def __str__(self):
+        return self.comment_content
+
+
+
 
 
 class Reply(models.Model):
     reply_content = models.CharField(max_length=1000)
-    reply_time = models.TimeField(auto_now_add=True)
+    reply_time = models.DateTimeField(auto_now_add=True)
     # we can make enhancement here
     reply_user = models.ForeignKey(User)
     reply_comments = models.ManyToManyField(Comment)
+    def __str__(self):
+        return self.reply_content
 
 class Curse(models.Model):
     curse_content = models.CharField(max_length=20)
+    def __str__(self):
+        return self.curse_content
 
 # we need this table Manually
 # we handle error of the count like by code
@@ -43,15 +56,12 @@ class Curse(models.Model):
 class Like(models.Model):
     like_user = models.ForeignKey(User)
     like_post = models.ForeignKey(Post)
-    like_type = models.BooleanField(default=True)  # False >>dislike or True >>like
+    like_type = models.BooleanField(default=None)  # False >>dislike or True >>like
+    def __str__(self):
+        return self.like_post
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=100)
     tag_posts = models.ManyToManyField(Post)
-
-    # def __init__(self):
-        # if Tag.objects.get(name):
-        #     pass
-            # self=Tag.objects.get(name)[0]
-        # else:
-        # self.tag_name=name
+    def __str__(self):
+        return self.tag_name

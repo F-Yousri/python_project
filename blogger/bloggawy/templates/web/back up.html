@@ -1,11 +1,7 @@
-{% extends 'web/base.html' %}
-<!-- {% load static %} -->
-{% block body %}
 <!DOCTYPE html>
 {% load staticfiles %}
 <html>
 <head>
-
     <!-- Required meta tags for Bootstrap -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -54,7 +50,6 @@
             </li>
         </ul>
     </div>
-
 </nav>
 
 <div class="container">
@@ -114,93 +109,90 @@
     <center>
 
 
+        <div class="container">
+            <div class="btn-group"></div>
+            <div class="btn btn-success btn-lg active like">
+                {% if like.like_type == True %}
+                <span class="like-text">liked</span>
+                {% else %}
+                <span class="like-text">like</span>
+                {% endif %}
+                <span id="likecount" class="badge badge-light">{{ likes }}</span>
+            </div>
+            <div class="btn btn-danger btn-lg active dislike">
+                {% if like.like_type == False %}
+                <span class="dislike-text">disliked</span>
+                {% else %}
+                <span class="dislike-text">dislike</span>
+                {% endif %}
+                <span id="dislikecount" class="badge badge-light">{{ dislikes }}</span>
+            </div>
+        </div>
+
+        <form method="POST">{% csrf_token %}
+            {{ form.errors }}
+            {{ form.comment_content }}
+            <!--{{ form.as_p }}-->
+            <div>
+
+                <button type="submit" class="btn btn-primary mb-2">Add comment</button>
+            </div>
+
+
+        </form>
     </center>
 
 
-    <div class="card">
-        <div class="card-header text-center">
 
 
-            <div class="container">
-                <div class="btn-group"></div>
-                <div class="btn btn-success btn-lg active like">
-                    {% if like.like_type == True %}
-                    <span class="like-text">liked</span>
-                    {% else %}
-                    <span class="like-text">like</span>
-                    {% endif %}
-                    <span id="likecount" class="badge badge-light">{{ likes }}</span>
-                </div>
-                <div class="btn btn-danger btn-lg active dislike">
-                    {% if like.like_type == False %}
-                    <span class="dislike-text">disliked</span>
-                    {% else %}
-                    <span class="dislike-text">dislike</span>
-                    {% endif %}
-                    <span id="dislikecount" class="badge badge-light">{{ dislikes }}</span>
-                </div>
-            </div>
 
 
-        </div>
-        <div class="card-body text-center">
-            <p class="card-text">
 
 
-            <form method="POST">{% csrf_token %}
-                {{ form.errors }}
-                {{ form.comment_content }}
-                <!--{{ form.as_p }}-->
-                <div>
-
-                    <button type="submit" class="btn btn-primary mb-2">Add comment</button>
-                </div>
 
 
-            </form>
 
+
+
+
+
+
+
+
+
+    <br/><br/><br/><br/><br/>
+
+    <div class="comment_area">
+        <h3 class="border-bottom border-gray pb-2 mb-0 text-left" style=' width: 200px'>Comments</h3>
+
+        <!--i will modify the img field later-->
+        {% for comment in comments %}
+
+        <div class="media text-muted pt-3">
+            <img data-src="holder.js/32x32?theme=thumb&amp;
+            bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32"
+                 class="mr-2 rounded" style="width: 32px;
+                  height: 32px;" src="{%  static 'bloggawy/images/commentphoto.png' %}" data-holder-rendered="true">
+            <p style='padding: 3px; word-break: break-all; word-wrap: break-word;'
+               class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray col-6 col-md-8" width="100">
+                <strong class="d-block text-gray-dark">@{{comment.comment_user.username}} on
+                    {{comment.comment_time}}</strong>
+
+                {{ comment.comment_content|linebreaksbr }}
 
             </p>
-
         </div>
-        <div class="card-footer text-muted">
+
+        {% endfor %}
 
 
-            <div class="comment_area">
-                <h3 class="border-bottom border-gray pb-2 mb-0 text-left" style=' width: 200px'>Comments</h3>
-
-                <!--i will modify the img field later-->
-                {% for comment in comments %}
-
-                <div class="media text-muted pt-3">
-                    <img data-src="holder.js/32x32?theme=thumb&amp;
-            bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32"
-                         class="mr-2 rounded" style="width: 32px;
-                  height: 32px;" src="{%  static 'bloggawy/images/commentphoto.png' %}" data-holder-rendered="true">
-                    <p style='padding: 3px; word-break: break-all; word-wrap: break-word;'
-                       class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray col-6 col-md-8" width="100">
-                        <strong class="d-block text-gray-dark">@{{comment.comment_user.username}} on
-                            {{comment.comment_time}}</strong>
-
-                        {{ comment.comment_content|linebreaksbr }}
-
-                    </p>
-                </div>
-
-                {% endfor %}
-
-
-            </div>
-
-            <!--enhancement make the url with ajax-->
-            <small class="d-block text-right mt-3">
-                <!--this is enhancement-->
-                <a href="#">All comments</a>
-            </small>
-
-
-        </div>
     </div>
+
+    <!--enhancement make the url with ajax-->
+    <small class="d-block text-right mt-3">
+        <!--this is enhancement-->
+        <a href="#">All comments</a>
+    </small>
 
 
     <!-- Pagination -->
@@ -230,7 +222,7 @@
     </div>
 </div>
 
-
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -275,10 +267,13 @@
 
     var like_status = "";
 
-    $(".like").on("click", function (event) {
+    $(".like").on("click", function (event)
+    {
 
-        if ($(".like-text").html() == "like") {
-            if ($(".dislike-text").html() == "disliked") {
+        if ($(".like-text").html() == "like")
+        {
+            if ($(".dislike-text").html() == "disliked")
+            {
                 $(".dislike-text").html("dislike");
                 $("#dislikecount").html(parseInt($("#dislikecount").html()) - 1);
 
@@ -286,7 +281,8 @@
             $(".like-text").html("liked");
             $("#likecount").html(parseInt($("#likecount").html()) + 1);
         }
-        else {
+        else
+        {
             $(".like-text").html("like");
             $("#likecount").html(parseInt($("#likecount").html()) - 1);
         }
@@ -304,10 +300,13 @@
 
     });
 
-    $(".dislike").on("click", function (event) {
+    $(".dislike").on("click", function (event)
+    {
 
-        if ($(".dislike-text").html() == "dislike") {
-            if ($(".like-text").html() == "liked") {
+        if ($(".dislike-text").html() == "dislike")
+        {
+            if ($(".like-text").html() == "liked")
+            {
                 $(".like-text").html("like");
                 $("#likecount").html(parseInt($("#likecount").html()) - 1);
             }
@@ -315,7 +314,8 @@
             $("#dislikecount").html(parseInt($("#dislikecount").html()) + 1);
 
         }
-        else {
+        else
+        {
             $(".dislike-text").html("dislike");
             $("#dislikecount").html(parseInt($("#dislikecount").html()) - 1);
         }
@@ -334,5 +334,4 @@
 
 </script>
 </body>
-{% endblock %}
 </html>
