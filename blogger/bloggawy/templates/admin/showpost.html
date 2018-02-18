@@ -1,6 +1,6 @@
 
 {% extends "admin/adminpaneltwo.html"%}
-{%load static%}
+{% load static %}
 {% block main_block %}
 <br>
 <br>
@@ -8,13 +8,12 @@
 <br>
 
 
-<div>	
-	<h1>{{post.post_title}}</h1>
-	<h6>{{post.post_time}}</h6>
-	<p>{{post.post_content}}</p>
-  	<div><img src="{{post.post_photo}}"></div>
-    
-    This post posted by UserId=<h6>{{post.post_user_id}}</h6>  
+<div class=" pull-center">	
+	<h1> {{post.post_title}}</h1>
+	<div>Time :{{post.post_time}}<div>
+	<div >Content :{{post.post_content}} <div>
+  	<div>This post posted by UserId= {{post.post_user_id}}</div>
+  	<div><img src="{{post.post_photo.url}}" width="100px" height="100px"></div>
 
 </div>	
 

@@ -1,11 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
-    <title>Responsive Sidebar Menu - Bootsnipp.com</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style type="text/css">
             body,html{
 		height: 100%;
@@ -179,11 +181,12 @@
 		<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="/bloggawy/allposts">Posts<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-				<li ><a href="/bloggawy/allusers">Users<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-				<li ><a href="/bloggawy/allcategories">Categories<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+				<li ><a href="/bloggawy/allusers">Users<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-group"></span></a></li>
+				<li ><a href="/bloggawy/allcategories">Categories<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-database"></span></a></li>
 				
-				<li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-				<li ><a href="#">Blocked user<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+				<li><a href="/bloggawy/adminpanel">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+				<li ><a href="/bloggawy/forbiddenwords">Forbidden Words<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-ban"></span></a></li>
+				<li ><a href="/bloggawy/Tags">Tgas<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-tag"></span></a></li>
 				
 				
 			</ul>
