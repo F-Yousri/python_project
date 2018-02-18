@@ -1,0 +1,21 @@
+
+{% extends "admin/adminpaneltwo.html"%}
+{% load static %}
+{% block main_block %}
+<br>
+<br>
+<br>
+<br>
+
+
+<div class=" pull-center">	
+	<h1> {{post.post_title}}</h1>
+	<div>Time :{{post.post_time}}<div>
+	<div >Content :{{post.post_content}} <div>
+  	<div>This post posted by UserId= {{post.post_user_id}}</div>
+  	<div><img src="{{post.post_photo.url}}" width="100px" height="100px"></div>
+
+</div>	
+
+
+{% endblock %}

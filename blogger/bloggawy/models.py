@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import ImageField
+from django.db.models import DateTimeField
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=200)
