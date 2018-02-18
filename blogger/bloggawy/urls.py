@@ -33,4 +33,4 @@ urlpatterns = [
     url(r'^(?P<st_id>[0-9]+)/edittag$',views.edittag),
 
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

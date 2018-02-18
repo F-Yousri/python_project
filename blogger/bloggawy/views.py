@@ -68,7 +68,7 @@ def dislike(request, post_id):
 # Create your views here.
 def all_posts(request):
     return render(request, "posts/all_p.html", {"all_posts": Post.objects.all()})
-
+    
 def post_details(request, p_id):
     return render(request, "posts/post_page.html", {"post": Post.objects.get(id=p_id)})
 

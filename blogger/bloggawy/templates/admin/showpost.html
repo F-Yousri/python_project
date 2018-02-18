@@ -13,7 +13,7 @@
 	<div>Time :{{post.post_time}}<div>
 	<div >Content :{{post.post_content}} <div>
   	<div>This post posted by UserId= {{post.post_user_id}}</div>
-  	<div><img src="{{post.post_photo.url}}" width="100px" height="100px"></div>
+  	<div><img src="{% static '' %}{{post.post_photo.url }}" width="100px" height="100px"></div>
 
 </div>	
 

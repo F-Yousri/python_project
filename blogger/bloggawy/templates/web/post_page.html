@@ -1,8 +1,8 @@
-<!-- {% extends 'web/base.html' %} -->
+{% extends 'web/base.html' %}
 <!-- {% load static %} -->
-<!-- {% block body %} -->
+{% block body %}
 <!DOCTYPE html>
-{% load staticfiles %}
+<!-- {% load staticfiles %} -->
 <html>
 <head>
 
@@ -93,7 +93,7 @@
         <div class="text-center col-8 col-xl-9 mt-2">
             <h1>Title of the post</h1>
             <div style="height:500px">
-                <img class="mw-100 mh-100" src="sources/images/technology1.jpg"></img>
+                <img class="mw-100 mh-100" src= "{% static 'bloggawy/images/technology1.jpg'%}" ></img>
             </div>
             <p class="mt-1">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                 laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae
