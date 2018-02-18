@@ -20,11 +20,29 @@ from .forms import CommentForm
 from .models import Like
 from .models import Post
 from django.core.exceptions import ObjectDoesNotExist
-
+import json
+from django.db.models import Q
 
 # from django.http import JsonResponse
 
 # just for store the like in the model
+def get_post(request):
+    if request.is_ajax():
+        q = request.GET.get('term')
+       
+        posts = Post.objects.filter(post_title__icontains=q)
+        results = []
+        for pl in posts:
+            post_json = {}
+            post_json ['id']=pl.id;
+            post_json ['label']=pl.post_title;
+            post_json['value']=pl.post_title;
+            results.append(post_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 def like(request, post_id):
     current_post = Post.objects.get(id=post_id)
     try:
