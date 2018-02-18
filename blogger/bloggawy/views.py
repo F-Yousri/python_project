@@ -12,7 +12,7 @@ import re
 
 # Create your views here.
 def all_posts(request):
-    return render(request, "web/post_page.html", {"all_posts": Post.objects.all()})
+    return render(request, "posts/post_page.html", {"all_posts": Post.objects.all()})
 
 
 def post_details(request, p_id):
@@ -27,7 +27,7 @@ def new_post(request):
             obj = form.save(commit=False)
             obj.post_user = User(1)
             # obj.post_user_id=request.user.id
-            obj.time = strftime("%a, %d %b %Y %H:%M:%S", gmtime())
+            # obj.time = strftime("%a, %d %b %Y %H:%M:%s", gmtime())
             obj.save()
             words = obj.post_content.split()
             for word in words:
