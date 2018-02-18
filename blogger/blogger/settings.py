@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 )
 
 MIDDLEWARE_CLASSES = (
@@ -75,7 +76,7 @@ WSGI_APPLICATION = 'blogger.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bloggawy',
+        'NAME': 'bloggawys',
         'USER': 'root',
         'PASSWORD': '751991',
         'HOST': 'localhost',
@@ -98,9 +99,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-
-
 STATIC_URL = os.path.join(BASE_DIR, 'bloggawy/static/bloggawy/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'bloggawy/static/bloggawy/images')
 MEDIA_URL = '/bloggawy/'
-
