@@ -25,3 +25,4 @@ class SignUpForm(UserCreationForm):
 #             'fieldname': forms.TextInput(attrs={'class': 'form-control'}),
 #             'fieldname': forms.TextInput(attrs={'class': 'form-control'}),
 #         }
+

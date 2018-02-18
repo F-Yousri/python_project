@@ -1,4 +1,5 @@
 """blogger URL Configuration
+
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
 Examples:
@@ -13,14 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 
-from django.conf.urls import include, url
+from django.conf.urls import url
 from django.contrib import admin
 from . import views
 
 urlpatterns = [
    
-    url(r'^registeration$',views.registeration),
+    url(r'^registration$',views.registeration),
     url(r'^adminpanel$',views.adminpanel)
     
 
 ]
+

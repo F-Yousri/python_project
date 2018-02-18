@@ -15,18 +15,23 @@ def registeration(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            raw_email= form.cleaned_data.get('email')
-            user = authenticate(username=username, password=raw_password,email=raw_email)
+            # username = form.cleaned_data.get('username')
+            # raw_password = form.cleaned_data.get('password1')
+            # raw_email= form.cleaned_data.get('email')
+            user = authenticate(username=request.POST['username'], password=request.POST['password1'])
             login(request, user)
-            return redirect('web/home.html')
+            return redirect('/web/home.html')
             
             
 
     else:
-        form = SignUpForm()
+    	form = SignUpForm()
     return render(request, 'web/registration.html',{"form": form})
 
 def adminpanel(request):
-return(request,'admin/adminpanel.html')
+    return(request,'admin/adminpanel.html')
+
+      
+    	
+
+
