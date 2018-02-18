@@ -16,9 +16,8 @@ class Post(models.Model):
     post_time = models.DateTimeField(auto_now_add=True)  # generate time automatic
     # we can make enhancement here
     post_user = models.ForeignKey(User)
-    category_id = models.ForeignKey(Category)
+    category_id = models.ForeignKey(Category,null=True)
     # we can make enhancement here
-    post_category = models.ForeignKey(Category,null=True)
     def __str__(self):
         return self.post_title
 

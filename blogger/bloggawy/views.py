@@ -57,7 +57,7 @@ def dislike(request, post_id):
         like_object.save()
 
     return HttpResponse("Dislike Done");
->>>>>>> A_Helal_branch
+
 
 
 # Create your views here.
@@ -68,7 +68,7 @@ def post_details(request, p_id):
     return render(request, "posts/post_page.html", {"post": Post.objects.get(id=p_id)})
 
 
-<<<<<<< HEAD
+
 def new_post(request):
     form = PostForm()
     if request.method == "POST":
@@ -76,7 +76,7 @@ def new_post(request):
         if form.is_valid():
             obj = form.save(commit=False)
             obj.post_user = User(1)
-            # obj.post_user_id=request.user.id
+            # obj.post_user = request.user
             # obj.time = strftime("%a, %d %b %Y %H:%M:%s", gmtime())
             obj.save()
             words = obj.post_content.split()
@@ -89,8 +89,8 @@ def new_post(request):
                         tag.tag_name=word
                         tag.save()
                     tag.tag_posts.add(obj)
-    return HttpResponseRedirect('/bloggawy/posts')
-return render(request, "posts/new.html", {"form": form, "all_cats": Category.objects.all()}) 
+        return HttpResponseRedirect('/bloggawy/posts')
+    return render(request, "posts/new.html", {"form": form, "all_cats": Category.objects.all()}) 
 
 def index(request):
     return render(request, "web/index.html")  # http://127.0.0.1:8000/opensource/

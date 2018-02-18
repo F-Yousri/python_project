@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^post/(?P<post_id>[0-9]+)/dislike/$', views.dislike),  # for dislike
     url(r'.success.', views.success),  # for success
     url(r'.error.', views.error),  # for errors
-
+]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
