@@ -15,7 +15,20 @@ from .models import Category
 
 def home(request):
 	all_categories = Category.objects.all()
-	context = {"allCategories" : all_categories}
+	p1 = Category.subscribers.through.objects.filter(user_id = request.user.id)
+	p2=[]
+	for i in p1:
+		p2.append(i.category_id)
+
+
+
+
+
+
+	# data = {'data':p1}
+	context = {"allCategories" : all_categories,
+				'subscribercategory':p2
+	}
 	# return HttpResponseRedirect("/user/home.html")
 	return render(request,"web/home2.html",context)
 
