@@ -15,7 +15,7 @@ class Category(models.Model):
 class Post(models.Model):
     post_title = models.CharField(max_length=50)
     post_content = models.CharField(max_length=2000)
-    post_photo = ImageField(upload_to='static/bloggawy/images', default="static/bloggawy/images/testphoto.jpg")
+    post_photo = ImageField(upload_to='uploads', default="static/bloggawy/images/testphoto.jpg")
     post_time = models.DateTimeField(auto_now_add=True)  # generate time automatic
     # we can make enhancement here
     post_user = models.ForeignKey(User)
