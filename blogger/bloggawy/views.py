@@ -22,7 +22,7 @@ def like(request, post_id):
     try:
         current_like_object = Like.objects.get(like_post=current_post)
         if current_like_object.like_type == False:
-            current_like_object.like_type=True
+            current_like_object.like_type = True
             current_like_object.save()
         else:
             current_like_object.delete()
@@ -33,7 +33,6 @@ def like(request, post_id):
             like_type=True
         )
         like_object.save()
-
     return HttpResponse("Like Done")
 
 
@@ -43,8 +42,13 @@ def dislike(request, post_id):
     try:
         current_like_object = Like.objects.get(like_post=current_post)
         if current_like_object.like_type == True:
-            current_like_object.like_type=False
-            current_like_object.save()
+            current_like_object.like_type = False
+            # ToDo i want to delete the post if the post have 10 likes
+            check_dislikes_counter = Like.objects.filter(like_post=current_post, like_type=False)
+            if check_dislikes_counter == 1:
+                current_post.delete()
+            else:
+                current_like_object.save()
         else:
             current_like_object.delete()
     except ObjectDoesNotExist:
@@ -96,21 +100,21 @@ def comment(request, post_id):
             return HttpResponseRedirect("success")
         if reply_form.is_valid():
             comment = Comment.objects.get(id=request.POST.get('numb'))
-            reply_form.ReplySave(current_post, current_user,comment)
+            reply_form.ReplySave(current_post, current_user, comment)
             return HttpResponseRedirect("success")
-    #I have fix some problem here to display the recent comment in the top of comments
+    # I have fix some problem here to display the recent comment in the top of comments
     comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-id')
     try:
         like_status = Like.objects.get(like_post=current_post, like_user=current_user)
         all_replys = Reply.objects.all()
     except ObjectDoesNotExist:
         like_status = None
-        all_replys=None
+        all_replys = None
 
-    like_count = Like.objects.filter(like_type=True).count()
-    dislike_count = Like.objects.filter(like_type=False).count()
+    like_count = Like.objects.filter(like_type=True,like_post=current_post).count()
+    dislike_count = Like.objects.filter(like_type=False,like_post=current_post).count()
     context = {
-        "current__post":current_post,
+        "current__post": current_post,
         "form": comment_form,
         "formr": reply_form,
         "comments": comments_of_post,
