@@ -4,11 +4,13 @@ from .models import User
 from .models import Comment
 # from .forms import PostForm
 from .forms import CommentForm
+from .forms import ReplyForm
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from time import gmtime, strftime
 from .models import Like
 from .models import Post
+from .models import Reply
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -80,27 +82,38 @@ def error(request):
 # view post
 def comment(request, post_id):
     comment_form = CommentForm()
+    reply_form = ReplyForm()
     current_post = Post.objects.get(id=post_id)
     current_user = request.user
+
     if request.method == "POST":
+        reply_form = ReplyForm(request.POST)
         comment_form = CommentForm(request.POST, initial={'comment_post_id': post_id})
         if comment_form.is_valid():
             # comment_form.save()
             # current_user = User.objects.get(id=1)
             comment_form.CommentSave(current_post, current_user)
             return HttpResponseRedirect("success")
-        #I have fix some problem here to display the recent comment in the top of comments
+        if reply_form.is_valid():
+            comment = Comment.objects.get(id=request.POST.get('numb'))
+            reply_form.ReplySave(current_post, current_user,comment)
+            return HttpResponseRedirect("success")
+    #I have fix some problem here to display the recent comment in the top of comments
     comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-id')
     try:
         like_status = Like.objects.get(like_post=current_post, like_user=current_user)
+        all_replys = Reply.objects.all()
     except ObjectDoesNotExist:
         like_status = None
+        all_replys=None
 
     like_count = Like.objects.filter(like_type=True).count()
     dislike_count = Like.objects.filter(like_type=False).count()
     context = {
         "form": comment_form,
+        "formr": reply_form,
         "comments": comments_of_post,
+        "replys": all_replys,
         "like": like_status,
         "likes": like_count,
         "dislikes": dislike_count,

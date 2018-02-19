@@ -180,7 +180,59 @@
                         {{ comment.comment_content|linebreaksbr }}
 
                     </p>
+
+
                 </div>
+
+
+                <!--------->
+                            <p class="card-text">
+
+
+            <form method="POST">{% csrf_token %}
+                {{ formr.errors }}
+                {{ formr.reply_content }}
+                <!--{{ form.as_p }}-->
+                <div>
+                    <input id="numb" name="numb" type="number" style="display:None" value="{{ comment.id }}" />
+                    <button type="submit" class="btn btn-primary mb-2">Add replay</button>
+                </div>
+
+
+            </form>
+
+
+            </p>
+                <!--------->
+
+
+
+{% for reply in replys %}
+                {% if comment.id == reply.reply_comments_id %}
+                <!-- repley -->
+                <div class="container" style="margin-left: 30px;" >
+                    <div class="media text-muted  mt-3">
+                        <img data-src="holder.js/32x32?theme=thumb&amp;
+            bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32"
+                             class="mr-2 rounded" style="width: 32px;
+                  height: 32px;" src="{%  static 'bloggawy/images/reply.png' %}" data-holder-rendered="true">
+                        <p style='padding: 3px; word-break: break-all; word-wrap: break-word;'
+                           class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray col-6 col-md-8"
+                           width="100">
+                            <strong class="d-block text-gray-dark">@{{reply.reply_user.username}} on
+                                {{reply.reply_time}} test</strong>
+
+                            {{ reply.reply_content|linebreaksbr }}
+
+                        </p>
+                    </div>
+
+                </div>
+
+                {% endif %}
+                {% endfor %}
+
+                <!-- repley -->
 
                 {% endfor %}
 
