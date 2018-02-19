@@ -175,50 +175,50 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Admin panel</a>
+			<h2>Admin panel</h2>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="/bloggawy/allposts">Posts<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+			<ul id='sidebar' class="nav navbar-nav">
+				<li ><a href="/bloggawy/allposts">Posts<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
 				<li ><a href="/bloggawy/allusers">Users<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-group"></span></a></li>
 				<li ><a href="/bloggawy/allcategories">Categories<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-database"></span></a></li>
 				
-				<li><a href="/bloggawy/adminpanel">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+				<li><a href="/bloggawy/all_posts">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
 				<li ><a href="/bloggawy/forbiddenwords">Forbidden Words<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-ban"></span></a></li>
-				<li ><a href="/bloggawy/Tags">Tgas<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-tag"></span></a></li>
+				<li ><a href="/bloggawy/Tags">Tags<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-tag"></span></a></li>
 				
 				
 			</ul>
 		</div>
 	</div>
 </nav>
- <div id="content">
+ <!--<div id="content">-->
 
-                <nav class="navbar navbar-fixed-top">
-                    <div class="container-fluid">
+                <!--<nav class="navbar navbar-fixed-top">-->
+                    <!--<div class="container-fluid">-->
 
-                        
+                        <!---->
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Login</a></li>
-                                <li><a href="#">Logout</a></li>
-                                <li><a href="#">Register</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <hr>
-                </nav>
+                        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+                            <!--<ul class="nav navbar-nav navbar-right">-->
+                                <!--<li><a href="#">Home</a></li>-->
+                                <!--<li><a href="#">Login</a></li>-->
+                                <!--<li><a href="#">Logout</a></li>-->
+                                <!--<li><a href="#">Register</a></li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<hr>-->
+                <!--</nav>-->
 
                 
-                
-
                 
 
                 
-            </div>
+
+                
+            <!--</div>-->
 <div class="main">
 	{% block main_block %}
 	
@@ -250,6 +250,9 @@
 			height2 = $('.main').height()
   			htmlbodyHeightUpdate()
 		});
+	});
+	$('#sidebar li').click(function(){
+        $('.active').toggleclass('active')
 	});
 </script>
 </body>

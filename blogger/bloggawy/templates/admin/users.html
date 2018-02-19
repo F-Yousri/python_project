@@ -22,24 +22,30 @@
         <th>username</th>
         <th>email</th>
         <th>last login</th>
+          <th>is manager</th>
+          <th>Action</th>
       </tr>
     </thead>
     <tbody>
     	{%for us in allusers %}
 				{% if us.is_superuser == 1 %}
-					<tr class ="danger">
-						<td><font color="red">{{us.username}}</font></td>
-						<td><font color="red">{{us.email}}</font></td>
-						<td><font color="red">{{us.last_login}}</font></td>					
+					<tr class ="primary">
+						<td><font color="black">{{us.username}}</font></td>
+						<td><font color="black">{{us.email}}</font></td>
+						<td><font color="black">{{us.last_login}}</font></td>
+                        						<td><font color="black">{{us.is_superuser}}</font></td>
 					</tr>
+
+
 				{% elif us.is_superuser == 0 %}
 					<tr>
 						<td>{{us.username}}</td>
 						<td>{{us.email}}</td>
-						<td>{{us.last_login}}</td>	
-						<td><button type="button" class="btn btn-danger" >Block</button></td>
+						<td>{{us.last_login}}</td>
+                        <td>{{us.is_superuser}}</td>
+                        <td><a href="block/{{us.id}}"><button type="button" class="btn btn-danger" >{% if us.is_active and not us.is_superuser %} Block {% elif not us.is_superuser %} Unblock {% endif %}</button></a></td>
             
-            <td><button type="button" class="btn btn-primary" >Promote</button></td>	
+            <td><a href="promote/{{us.id}}"><button type="button" class="btn btn-primary" >Promote</button></a></td>
 
 					</tr>
 				{% endif %}
@@ -57,3 +63,76 @@
 
 
 {% endblock %}
+
+<!--<html lang="en">-->
+<!--<head>-->
+  <!--<meta charset="utf-8">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<br>-->
+<!--<br>-->
+<!--<br>-->
+
+<!--<div class="container">-->
+
+  <!---->
+  <!--<table class="table">-->
+    <!--<thead>-->
+      <!--<tr>-->
+        <!--<th>username</th>-->
+        <!--<th>email</th>-->
+        <!--<th>last login</th>-->
+
+      <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+                    <!--<h2 class="text-center">Managers</h2>-->
+    	<!--{%for us in allusers %}-->
+				<!--{% if us.is_superuser == 1 %}-->
+					<!--<tr class ="primary">-->
+						<!--<td><font color="black">{{us.username}}</font></td>-->
+						<!--<td><font color="black">{{us.email}}</font></td>-->
+						<!--<td><font color="black">{{us.last_login}}</font></td>-->
+					<!--</tr>-->
+                     <!--</tbody>-->
+  <!--</table>-->
+                  <!--<table class="table">-->
+    <!--<thead>-->
+      <!--<tr>-->
+        <!--<th>username</th>-->
+        <!--<th>email</th>-->
+        <!--<th>last login</th>-->
+          <!--<th>Action</th>-->
+      <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+  <!--<h2 class="text-center">Users </h2>-->
+
+				<!--{% elif us.is_superuser == 0 %}-->
+					<!--<tr>-->
+						<!--<td>{{us.username}}</td>-->
+						<!--<td>{{us.email}}</td>-->
+						<!--<td>{{us.last_login}}</td>	-->
+						<!--<td><button type="button" class="btn btn-danger" >{% if us.is_active %} Block {% else %} Unblock {% endif %}</button></td>-->
+            <!---->
+                        <!--<td><a href="promote/{{us.id}}"><button type="button" class="btn btn-primary" >Promote</button></a></td>-->
+
+					<!--</tr>-->
+				<!--{% endif %}-->
+
+			<!--{% endfor %}-->
+
+         <!---->
+     <!---->
+   <!--</tbody>-->
+  <!--</table>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
