@@ -57,7 +57,7 @@ def dislike(request, post_id):
         like_object.save()
     # ToDo i want to delete the post if the post have greater than 10 likes
     check_dislikes_counter = Like.objects.filter(like_post=current_post, like_type=False).count()
-    if check_dislikes_counter > 1:
+    if check_dislikes_counter > 10:
         current_post.delete()
     return HttpResponse("Dislike Done");
 
