@@ -14,8 +14,10 @@ from .models import Category
 
 
 def home(request):
+	all_categories = Category.objects.all()
+	context = {"allCategories" : all_categories}
 	# return HttpResponseRedirect("/user/home.html")
-	return render(request,"web/home2.html")
+	return render(request,"web/home2.html",context)
 
 @login_required
 def logout(request):
@@ -46,28 +48,28 @@ def login_form(request) :
 
 def create(request):
 	if request.method == 'GET':
-		category_name = request.GET['category']
-		subscribers = request.GET['user']
+		category_id = request.GET['category']
+		user_id = request.GET['user']
 		Type = request.GET['type']
-		if(Type == 'Subcribe'):
+		if(Type == 'Subscribe'):
 			
-			p1 = User.objects.create(
-					username = subscribers
+			# p1 = User.objects.create(
+			# 		username = subscribers
+			# 	)
+			# p1.save()
+			a1 = Category.subscribers.through.objects.create(
+					category_id = category_id,
+					user_id = user_id
 				)
-			p1.save()
-			a1 = Category.objects.create(
-					category_name = category_name,
-					# subscribers = subscribers
-				)
-			a1.save()
-			a1.subscribers.add(p1)
 			# a1.save()
-		elif(Type == 'UnSubcribe'):
-			instance = Category.objects.filter(
-					category_name = category_name
-					# subscribers = subscribers
+			# a1.subscribers.add(p1)
+			# # a1.save()
+		elif(Type == 'UnSubscribe'):
+			a1 = Category.subscribers.through.objects.filter(
+					category_id = category_id,
+					user_id = user_id
 				)
-			instance.delete()			
+			a1.delete()			
 		return HttpResponse("success")
 
 # @login_required

@@ -12,14 +12,16 @@
               <h3>Collapsible Sidebar</h3>
           </div>
 
-        
+          {% for category in allCategories %}
           <ul class="list-unstyled components">
-              <li class="active"><a href="#">Songs 
+              <li class="active"><a href="#">{{category.category_name}} 
               {% if user.is_authenticated %}
-              <button class="btn btn-success ml-3 sub" id="{{user}}" name="Songs">Subcribe</button>
+              <button class="btn btn-success ml-3 sub" id="{{request.user.id}}" name="{{category.id}}">Subscribe</button>
               {% endif %}
             </a></li>
-              <li><a href="#">News
+          </ul>
+          {% endfor %}  
+              <!-- <li><a href="#">News
                 {% if user.is_authenticated %}   
                 <button class="btn btn-success ml-3 sub" id="{{user}}" type="submit" value="Submit" name="News">Subcribe</button>
                 {% endif %}
@@ -55,7 +57,7 @@
                 <button class="btn btn-success ml-3 sub" id="{{user}}" type="submit" value="Submit" name="Contact">Subcribe</button>
                 {% endif %}
               </a></li>
-          </ul>
+          </ul> -->
     </nav>
 
 <div class="container">

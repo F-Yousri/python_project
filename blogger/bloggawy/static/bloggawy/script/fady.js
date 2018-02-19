@@ -25,6 +25,7 @@ $(".sub").on("click",function(e){
 					user : $(this).attr("id"),
 					type : $(this).html()
 				},
+				// dataType : 'json',
 				success:function(resp){
 					alert(resp);
 				},
@@ -37,13 +38,13 @@ $(".sub").on("click",function(e){
 
 	$(".sub").on("click",function(e){
 		var text = $(this).html()
-		if(text == 'Subcribe')
+		if(text == 'Subscribe')
 		{
 			$(this).html('UnSubscribe')
 		}
 		else if(text == 'UnSubscribe')
 		{
-			$(this).html('Subcribe')
+			$(this).html('Subscribe')
 		}
 			
 	});
