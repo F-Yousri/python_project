@@ -5,6 +5,7 @@ from  .forms import SignUpForm
 from  .forms import CategoryForm
 from  .forms import PostForm
 from  .forms import CurseForm
+from  .forms import UserForm
 from  .models import Post
 from  .models import Category
 from  .models import Curse
@@ -283,6 +284,36 @@ def edittag(request,st_id):
 			t_form.save()
 			return HttpResponseRedirect("/bloggawy/Tags")
 	return render(request,"admin/addtag.html",context)
+
+
+
+def deleteuser(request,st_id):
+    user=User.objects.get(id=st_id)
+    user.delete()
+    return HttpResponseRedirect("/bloggawy/allusers")
+
+
+def edituser(request,st_id):
+    user=User.objects.get(id=st_id)
+    userform=UserForm(instance=post)
+    context={"form":userform}
+    if request.method=="POST":
+        post_form=UserForm(request.POST,instance=user)
+        if post_form.is_valid():
+            post_form.save()
+            path="/bloggawy/allusers"
+            return HttpResponseRedirect(path)
+    return render(request,"admin/adduser.html",context)
+
+def adduser(request):
+    form=UserForm()
+    context={"form":form}
+    if request.method=="POST":
+        post_form=UserForm(request.POST)
+        if post_form.is_valid():
+            post_form.save()
+            return HttpResponseRedirect("/bloggawy/allusers")
+    return render(request,"admin/adduser.html",context)
 
 # view post
 def comment(request, post_id):

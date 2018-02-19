@@ -15,6 +15,9 @@ urlpatterns = [
     url(r'.error.', views.error),  # for errors
     url(r'^registeration$',views.registeration),
     url(r'^allusers$',views.allusers),
+    url(r'^User/add$',views.adduser),
+    url(r'^(?P<st_id>[0-9]+)/User/edit$',views.edituser),
+    url(r'^(?P<st_id>[0-9]+)/User/delete$',views.deleteuser),
     url(r'^adminpanel$',views.adminpanel),
     url(r'^allposts$',views.allposts),
     url(r'^allcategories$',views.allcategories),
