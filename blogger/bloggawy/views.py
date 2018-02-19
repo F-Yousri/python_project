@@ -21,7 +21,8 @@ def like(request, post_id):
     current_post = Post.objects.get(id=post_id)
     current_user = request.user
     try:
-        current_like_object = Like.objects.get(like_post=current_post,like_user=current_user)#state for the current user
+        current_like_object = Like.objects.get(like_post=current_post,
+                                               like_user=current_user)  # state for the current user
         if current_like_object.like_type == False:
             current_like_object.like_type = True
             current_like_object.save()
@@ -42,8 +43,9 @@ def dislike(request, post_id):
     current_post = Post.objects.get(id=post_id)
     current_user = request.user
     try:
-        current_like_object = Like.objects.get(like_post=current_post,like_user=current_user)#state for the current user
-        if current_like_object.like_type == True:
+        current_like_object = Like.objects.get(like_post=current_post,
+                                               like_user=current_user)  # state for the current user
+        if current_like_object.like_type == True :
             current_like_object.like_type = False
             current_like_object.save()
         else:
@@ -83,8 +85,6 @@ def error(request):
     return render(request, "web/error.html")
 
 
-
-
 # view post
 def comment(request, post_id):
     comment_form = CommentForm()
@@ -102,32 +102,38 @@ def comment(request, post_id):
             # comment_form.save()
             # current_user = User.objects.get(id=1)
             comment_form.CommentSave(current_post, current_user)
+            #return HttpResponseRedirect(request.path_info)
             return HttpResponseRedirect("success")
         if reply_form.is_valid():
             comment = Comment.objects.get(id=request.POST.get('numb'))
             reply_form.ReplySave(current_post, current_user, comment)
+            #return HttpResponseRedirect(request.path_info)
             return HttpResponseRedirect("success")
+
     # I have fix some problem here to display the recent comment in the top of comments
     comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-id')
     try:
         like_status = Like.objects.get(like_post=current_post, like_user=current_user)
-        all_replys = Reply.objects.all()
     except ObjectDoesNotExist:
         like_status = None
-        all_replys = None
+    try:
+        all_replies = Reply.objects.all()
+    except ObjectDoesNotExist:
+        all_replies = None
 
-    like_count = Like.objects.filter(like_type=True,like_post=current_post).count()
-    dislike_count = Like.objects.filter(like_type=False,like_post=current_post).count()
+    like_count = Like.objects.filter(like_type=True, like_post=current_post).count()
+    dislike_count = Like.objects.filter(like_type=False, like_post=current_post).count()
     context = {
         "current__post": current_post,
         "form": comment_form,
         "formr": reply_form,
         "comments": comments_of_post,
-        "replys": all_replys,
+        "replies": all_replies,
         "like": like_status,
         "likes": like_count,
         "dislikes": dislike_count,
     }
+    #return HttpResponseRedirect(request.path_info)
     return render(request, "web/post_page.html", context)
 
 # To send variables implecitly
