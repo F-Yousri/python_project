@@ -113,7 +113,7 @@
    <div class="card mt-4 container">
     <div class="card-header text-center">
 
-
+{% if user.is_authenticated %}
      <div class="container">
       <div class="btn-group"></div>
       <div class="btn btn-success btn-lg active like">
@@ -133,13 +133,13 @@
        <span id="dislikecount" class="badge badge-light">{{ dislikes }}</span>
       </div>
      </div>
-
+{% endif %}
 
     </div>
     <div class="card-body text-center">
      <p class="card-text">
 
-
+{% if user.is_authenticated %}
      <form method="POST">{% csrf_token %}
       {{ form.errors }}
       {{ form.comment_content }}
@@ -152,7 +152,7 @@
 
      </form>
 
-
+{% endif %}
      </p>
 
     </div>
@@ -186,6 +186,7 @@
 
       <div class="comment_replies">
        <!----reply----->
+       {% if user.is_authenticated %}
        <p class="card-text">
 
 
@@ -201,9 +202,8 @@
 
 
        </form>
-
-
        </p>
+       {% endif %}
        <!--------->
 
 

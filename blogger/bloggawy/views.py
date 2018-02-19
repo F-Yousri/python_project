@@ -19,7 +19,12 @@ from django.core.exceptions import ObjectDoesNotExist
 # just for store the like in the model
 def like(request, post_id):
     current_post = Post.objects.get(id=post_id)
-    current_user = request.user
+    if request.user.is_authenticated() :
+
+        current_user = request.user
+    else:
+        current_user = None
+
     try:
         current_like_object = Like.objects.get(like_post=current_post,
                                                like_user=current_user)  # state for the current user
@@ -41,7 +46,11 @@ def like(request, post_id):
 # just for store the dislike in the model
 def dislike(request, post_id):
     current_post = Post.objects.get(id=post_id)
-    current_user = request.user
+    if request.user.is_authenticated():
+
+        current_user = request.user
+    else:
+        current_user = None
     try:
         current_like_object = Like.objects.get(like_post=current_post,
                                                like_user=current_user)  # state for the current user
@@ -93,7 +102,11 @@ def comment(request, post_id):
         current_post = Post.objects.get(id=post_id)
     except Post.DoesNotExist:
         return render(request, "web/errorpostpage.html")
-    current_user = request.user
+    if request.user.is_authenticated():
+
+        current_user = request.user
+    else:
+        current_user = None
 
     if request.method == "POST":
         reply_form = ReplyForm(request.POST)
@@ -145,7 +158,7 @@ def comment(request, post_id):
 
 
 # To check for Authentication
-# if request.user.is_authenticated:
+# if request.request.user.is_authenticated():
 #     ... # Do something for logged-in users.
 # else:
 #     ... # Do something for anonymous users.
