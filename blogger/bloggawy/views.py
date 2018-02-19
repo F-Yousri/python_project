@@ -110,6 +110,7 @@ def comment(request, post_id):
     like_count = Like.objects.filter(like_type=True).count()
     dislike_count = Like.objects.filter(like_type=False).count()
     context = {
+        "current__post":current_post,
         "form": comment_form,
         "formr": reply_form,
         "comments": comments_of_post,
