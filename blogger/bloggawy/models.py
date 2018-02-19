@@ -25,6 +25,7 @@ class Post(models.Model):
         return self.post_title
 
 
+
 class Comment(models.Model):
     comment_content = models.CharField(max_length=1000)
     comment_time = models.DateTimeField(auto_now_add=True)

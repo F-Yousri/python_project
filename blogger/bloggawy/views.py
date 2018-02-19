@@ -19,8 +19,9 @@ from django.core.exceptions import ObjectDoesNotExist
 # just for store the like in the model
 def like(request, post_id):
     current_post = Post.objects.get(id=post_id)
+    current_user = request.user
     try:
-        current_like_object = Like.objects.get(like_post=current_post)
+        current_like_object = Like.objects.get(like_post=current_post,like_user=current_user)#state for the current user
         if current_like_object.like_type == False:
             current_like_object.like_type = True
             current_like_object.save()
@@ -39,16 +40,12 @@ def like(request, post_id):
 # just for store the dislike in the model
 def dislike(request, post_id):
     current_post = Post.objects.get(id=post_id)
+    current_user = request.user
     try:
-        current_like_object = Like.objects.get(like_post=current_post)
+        current_like_object = Like.objects.get(like_post=current_post,like_user=current_user)#state for the current user
         if current_like_object.like_type == True:
             current_like_object.like_type = False
-            # ToDo i want to delete the post if the post have 10 likes
-            check_dislikes_counter = Like.objects.filter(like_post=current_post, like_type=False)
-            if check_dislikes_counter == 1:
-                current_post.delete()
-            else:
-                current_like_object.save()
+            current_like_object.save()
         else:
             current_like_object.delete()
     except ObjectDoesNotExist:
@@ -58,7 +55,10 @@ def dislike(request, post_id):
             like_type=False
         )
         like_object.save()
-
+    # ToDo i want to delete the post if the post have greater than 10 likes
+    check_dislikes_counter = Like.objects.filter(like_post=current_post, like_type=False).count()
+    if check_dislikes_counter > 1:
+        current_post.delete()
     return HttpResponse("Dislike Done");
 
 
@@ -83,11 +83,16 @@ def error(request):
     return render(request, "web/error.html")
 
 
+
+
 # view post
 def comment(request, post_id):
     comment_form = CommentForm()
     reply_form = ReplyForm()
-    current_post = Post.objects.get(id=post_id)
+    try:
+        current_post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return render(request, "web/errorpostpage.html")
     current_user = request.user
 
     if request.method == "POST":

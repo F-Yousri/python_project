@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'.success.', views.success),  # for success
     url(r'.error.', views.error),  # for errors
 
+
     # url(r'^$', views.index),#http://127.0.0.1:8000/opensource/
     # url(r'^home$', views.home),#http://127.0.0.1:8000/opensource/home
     # url(r'^(?P<post_id>[0-9]+)/$',views.name),#http://127.0.0.1:8000/opensource/1/ ... details for student
