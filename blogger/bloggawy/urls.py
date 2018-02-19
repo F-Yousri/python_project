@@ -31,7 +31,7 @@ urlpatterns = [
     url(r'^Tags$',views.tags),
     url(r'^(?P<st_id>[0-9]+)/deletetag$',views.deletetag),
     url(r'^(?P<st_id>[0-9]+)/edittag$',views.edittag),
-    url(r'^home/get_post/',views.get_post,name='get_post')
+    url(r'^post/get_post/',views.get_post,name='get_post')
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
