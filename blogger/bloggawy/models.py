@@ -10,6 +10,14 @@ class Category(models.Model):
     def __str__(self):
         return  self.category_name
 
+
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=100)
+    '''tag_posts = models.ManyToManyField(Post)'''
+    def __str__(self):
+        return self.tag_name
+
 # we need this table Manually
 class Post(models.Model):
     post_title = models.CharField(max_length=50)
@@ -19,6 +27,7 @@ class Post(models.Model):
     # we can make enhancement here
     post_user = models.ForeignKey(User)
     category_id = models.ForeignKey(Category,null=True)
+    tag_posts = models.ManyToManyField(Tag)
     # we can make enhancement here
     def __str__(self):
         return self.post_title
@@ -61,8 +70,4 @@ class Like(models.Model):
     def __str__(self):
         return self.like_post
 
-class Tag(models.Model):
-    tag_name = models.CharField(max_length=100)
-    tag_posts = models.ManyToManyField(Post)
-    def __str__(self):
-        return self.tag_name
+

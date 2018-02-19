@@ -5,6 +5,7 @@ from  .forms import SignUpForm
 from  .forms import CategoryForm
 from  .forms import PostForm
 from  .forms import CurseForm
+from  .forms import UserForm
 from  .models import Post
 from  .models import Category
 from  .models import Curse
@@ -20,17 +21,35 @@ from .forms import CommentForm
 from .models import Like
 from .models import Post
 from django.core.exceptions import ObjectDoesNotExist
-
+import json
+from django.db.models import Q
 
 # from django.http import JsonResponse
 
 # just for store the like in the model
-def check_super(us):
-	return HttpResponse(us.id)
-	if response.user.is_superuser:
+
+def check_super(request):
+	# return HttpResponse(request.user.id)
+	if request.user.is_superuser:
 		pass
 	else:
 		return HttpResponseRedirect("/bloggawy/all_posts")
+
+def get_post(request):
+
+	q = request.GET.get('term','')
+	posts = Post.objects.filter(Q(tag_posts = Tag.objects.get(tag_name__icontains=q))|Q(post_title__icontains=q))
+	results = []
+	for pl in posts:
+		post_json = {}
+		post_json ['id']=pl.id;
+		post_json ['label']=pl.post_title;
+		results.append(post_json)
+		data = json.dumps(results)
+
+	mimetype = 'application/json'
+	return HttpResponse(data, mimetype)
+
 
 def like(request, post_id):
 	current_post = Post.objects.get(id=post_id)
@@ -349,6 +368,36 @@ def edittag(request,st_id):
 			t_form.save()
 			return HttpResponseRedirect("/bloggawy/Tags")
 	return render(request,"admin/addtag.html",context)
+
+
+
+def deleteuser(request,st_id):
+	user=User.objects.get(id=st_id)
+	user.delete()
+	return HttpResponseRedirect("/bloggawy/allusers")
+
+
+def edituser(request,st_id):
+	user=User.objects.get(id=st_id)
+	userform=UserForm(instance=post)
+	context={"form":userform}
+	if request.method=="POST":
+		post_form=UserForm(request.POST,instance=user)
+		if post_form.is_valid():
+			post_form.save()
+			path="/bloggawy/allusers"
+			return HttpResponseRedirect(path)
+	return render(request,"admin/adduser.html",context)
+
+def adduser(request):
+	form=UserForm()
+	context={"form":form}
+	if request.method=="POST":
+		post_form=UserForm(request.POST)
+		if post_form.is_valid():
+			post_form.save()
+			return HttpResponseRedirect("/bloggawy/allusers")
+	return render(request,"admin/adduser.html",context)
 
 # view post
 def comment(request, post_id):

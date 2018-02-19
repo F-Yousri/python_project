@@ -14,8 +14,14 @@ urlpatterns = [
     url(r'.success.', views.success),  # for success
     url(r'.error.', views.error),  # for errors
     url(r'^registeration$',views.registeration),
+
+    '''Admin crud ops'''
     url(r'^allusers$',views.allusers),
     url(r'^adminpanel$',views.allposts),
+    url(r'^User/add$',views.adduser),
+    url(r'^(?P<st_id>[0-9]+)/User/edit$',views.edituser),
+    url(r'^(?P<st_id>[0-9]+)/User/delete$',views.deleteuser),
+    url(r'^adminpanel$',views.adminpanel),
     url(r'^allposts$',views.allposts),
     url(r'^allcategories$',views.allcategories),
     url(r'^(?P<st_id>[0-9]+)/Category/edit$',views.editcategory),
@@ -33,6 +39,7 @@ urlpatterns = [
     url(r'^(?P<st_id>[0-9]+)/edittag$',views.edittag),
     url(r'^promote/(?P<us_id>[0-9]+)$', views.promote),
     url(r'^block/(?P<us_id>[0-9]+)$', views.block),
+    url(r'^post/get_post/',views.get_post,name='get_post')
 
 ]
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
