@@ -8,6 +8,8 @@ from bloggawy.models import Post
 from django.http import HttpResponseRedirect
 from time import gmtime, strftime
 from django.contrib.auth import logout as django_logout
+from .models import Category
+
 # Create your views here.
 
 
@@ -40,6 +42,33 @@ def login_form(request) :
 			return render(request,'web/login_form.html',context)		
 
 	return render(request,'web/login_form.html')
+
+
+def create(request):
+	if request.method == 'GET':
+		category_name = request.GET['category']
+		subscribers = request.GET['user']
+		Type = request.GET['type']
+		if(Type == 'Subcribe'):
+			
+			p1 = User.objects.create(
+					username = subscribers
+				)
+			p1.save()
+			a1 = Category.objects.create(
+					category_name = category_name,
+					# subscribers = subscribers
+				)
+			a1.save()
+			a1.subscribers.add(p1)
+			# a1.save()
+		elif(Type == 'UnSubcribe'):
+			instance = Category.objects.filter(
+					category_name = category_name
+					# subscribers = subscribers
+				)
+			instance.delete()			
+		return HttpResponse("success")
 
 # @login_required
 # def logged_in_only(request):

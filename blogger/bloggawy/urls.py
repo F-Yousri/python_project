@@ -25,6 +25,7 @@ urlpatterns = [
     # url(r'^register$',views.resgister),
     url(r'^home$', views.home),
     url(r'^logout$', views.logout),
+    url(r'^create$', views.create),
     # url(r'^$', views.index),#http://127.0.0.1:8000/opensource/
     # url(r'^home$', views.home),#http://127.0.0.1:8000/opensource/home
     # url(r'^(?P<post_id>[0-9]+)/$',views.name),#http://127.0.0.1:8000/opensource/1/ ... details for student

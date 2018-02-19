@@ -16,12 +16,12 @@
           <ul class="list-unstyled components">
               <li class="active"><a href="#">Songs 
               {% if user.is_authenticated %}
-              <button class="btn btn-success ml-3" id="1" >Subcribe</button>
+              <button class="btn btn-success ml-3 sub" id="{{user}}" name="Songs">Subcribe</button>
               {% endif %}
             </a></li>
               <li><a href="#">News
                 {% if user.is_authenticated %}   
-                <button class="btn btn-success ml-3" id="2" >Subcribe</button>
+                <button class="btn btn-success ml-3 sub" id="{{user}}" type="submit" value="Submit" name="News">Subcribe</button>
                 {% endif %}
               </a></li>
 
@@ -30,29 +30,29 @@
                   <ul class="collapse list-unstyled" id="homeSubmenu">
                       <li><a href="#">Football 
                         {% if user.is_authenticated %}
-                        <button class="btn btn-success ml-3" id="3" >Subcribe</button>
+                        <button class="btn btn-success ml-3 sub" id="{{user}}" type="submit" value="Submit" name="Football">Subcribe</button>
                         {% endif %}
                       </a></li>
                       <li><a href="#">Tennis 
                         {% if user.is_authenticated %}
-                        <button class="btn btn-success ml-3" id="4" >Subcribe</button>
+                        <button class="btn btn-success ml-3 sub" id="{{user}}" type="submit" value="Submit" name="Tennis">Subcribe</button>
                         {% endif %}
                       </a></li>
                       <li><a href="#">Rugby 
                         {% if user.is_authenticated %}
-                        <button class="btn btn-success ml-3" id="5" >Subcribe</button>
+                        <button class="btn btn-success ml-3 sub" id="{{user}}" type="submit" value="Submit" name="Rugby">Subcribe</button>
                         {% endif %}
                       </a></li>
                   </ul>
 
               <li><a href="#">Politics 
                 {% if user.is_authenticated %}
-                <button class="btn btn-success ml-3" id="6" >Subcribe</button>
+                <button class="btn btn-success ml-3 sub" id="{{user}}" type="submit" value="Submit" name="Politics">Subcribe</button>
                 {% endif %}
               </a></li>
               <li><a href="#">Contact 
                 {% if user.is_authenticated %}
-                <button class="btn btn-success ml-3" id="7" >Subcribe</button>
+                <button class="btn btn-success ml-3 sub" id="{{user}}" type="submit" value="Submit" name="Contact">Subcribe</button>
                 {% endif %}
               </a></li>
           </ul>
