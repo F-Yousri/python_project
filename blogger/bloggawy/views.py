@@ -144,7 +144,7 @@ def registration(request):
 
 	if request.method == 'POST':
 		form = SignUpForm(request.POST)
-		if form.is_valid():
+		if form.is_valid()  and not User.objects.filter(email=request.POST['email']):
 			form.save()
 			username = form.cleaned_data.get('username')
 			raw_password = form.cleaned_data.get('password1')
@@ -383,7 +383,7 @@ def edituser(request,st_id):
 	context={"form":userform}
 	if request.method=="POST":
 		post_form=UserForm(request.POST,instance=user)
-		if post_form.is_valid():
+		if post_form.is_valid() :
 			post_form.save()
 			path="/bloggawy/allusers"
 			return HttpResponseRedirect(path)
@@ -394,7 +394,7 @@ def adduser(request):
 	context={"form":form}
 	if request.method=="POST":
 		post_form=UserForm(request.POST)
-		if post_form.is_valid():
+		if post_form.is_valid() and not User.objects.filter(email=request.POST['email']):
 			post_form.save()
 			return HttpResponseRedirect("/bloggawy/allusers")
 	return render(request,"admin/adduser.html",context)
