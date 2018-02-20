@@ -1,24 +1,18 @@
 from django.shortcuts import render
-
 from .models import Post
 from .models import User
 from .models import Comment
 from .models import Curse
-# from .forms import PostForm
 from .forms import CommentForm
 from .forms import ReplyForm
-
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from bloggawy.models import Post
-# from .forms import PostForm
-
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from time import gmtime, strftime
-
 from .models import Like
 from .models import Post
 from .models import Reply
@@ -27,17 +21,12 @@ from django.contrib.auth import logout as django_logout
 from .models import Category
 
 
-# from django.http import JsonResponse
-
-# just for store the like in the model
 def like(request, post_id):
     current_post = Post.objects.get(id=post_id)
     if request.user.is_authenticated():
-
         current_user = request.user
     else:
         current_user = None
-
     try:
         current_like_object = Like.objects.get(like_post=current_post,
                                                like_user=current_user)  # state for the current user
@@ -86,9 +75,6 @@ def dislike(request, post_id):
     return HttpResponse("Dislike Done");
 
 
-# Create your views here.
-
-
 def home(request):
     all_categories = Category.objects.all()
     p1 = Category.subscribers.through.objects.filter(user_id=request.user.id)
@@ -96,17 +82,14 @@ def home(request):
     try:
         posts = Post.objects.all().order_by('-id')
     except Post.DoesNotExis:
-        posts=None
+        posts = None
 
     for i in p1:
         p2.append(i.category_id)
-
-    # data = {'data':p1}
     context = {"allCategories": all_categories,
                'subscribercategory': p2,
-               "posts":posts
+               "posts": posts
                }
-    # return HttpResponseRedirect("/user/home.html")
     return render(request, "web/home2.html", context)
 
 
@@ -118,12 +101,9 @@ def logout(request):
 
 def login_form(request):
     if request.method == 'POST':
-
         name = request.POST['username']
         password = request.POST['password']
-
         user = authenticate(username=name, password=password)
-
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -134,26 +114,16 @@ def login_form(request):
             return render(request, 'web/login_form.html', context)
 
     return render(request, 'web/login_form.html')
-
-
 def create(request):
     if request.method == 'GET':
         category_id = request.GET['category']
         user_id = request.GET['user']
         Type = request.GET['type']
         if (Type == 'Subscribe'):
-
-            # p1 = User.objects.create(
-            # 		username = subscribers
-            # 	)
-            # p1.save()
             a1 = Category.subscribers.through.objects.create(
                 category_id=category_id,
                 user_id=user_id
             )
-        # a1.save()
-        # a1.subscribers.add(p1)
-        # # a1.save()
         elif (Type == 'UnSubscribe'):
             a1 = Category.subscribers.through.objects.filter(
                 category_id=category_id,
@@ -163,17 +133,8 @@ def create(request):
         return HttpResponse("success")
 
 
-# Create your views here.
-def all_posts(request):
-    return render(request, "posts/all_p.html", {"all_posts": Post.objects.all()})
-
-
-def post_details(request, p_id):
-    return render(request, "posts/post_page.html", {"post": Post.objects.get(id=p_id)})
-
-
 def index(request):
-    return render(request, "web/index.html")  # http://127.0.0.1:8000/opensource/
+    return render(request, "web/index.html")
 
 
 def success(request):
@@ -183,16 +144,22 @@ def success(request):
 def error(request):
     return render(request, "web/error.html")
 
+def pagesuccess(request):
+    return render(request, "web/successpage.html")
 
+
+def pageerror(request):
+    return render(request, "web/successerror.html")
 
 # view post
-def comment(request, post_id):
+def post_page(request, post_id):
     comment_form = CommentForm()
     reply_form = ReplyForm()
     try:
         current_post = Post.objects.get(id=post_id)
     except Post.DoesNotExist:
-        return render(request, "web/errorpostpage.html")
+        pass
+    #     #return render(request, "web/errorpostpage.html")
     if request.user.is_authenticated():
         current_user = request.user
     else:
@@ -203,54 +170,13 @@ def comment(request, post_id):
         comment_form = CommentForm(request.POST, initial={'comment_post_id': post_id})
 
         if comment_form.is_valid():
-            # comment_form.save()
-            # current_user = User.objects.get(id=1)
-            # words=request.POST.get('comment_content').split()
-            # all_bad_words = Curse.objects.all()
-            #
-            #
-            # badwords=[]
-            # for badword in all_bad_words:
-            #     badwords.append(badword.curse_content.lower())
-            #
-            # for word in words:
-            #     if word.lower() in badwords:
-            #         stars='*' * len(word)
-            #         words=str(words).replace(word,stars)
-            #
-            # words = request.POST.get('comment_content').split()
-            # all_bad_words = Curse.objects.all()
-
-            # mutable = request.POST._mutable
-            # request.POST._mutable = True
-
-            # for badword in all_bad_words:
-            #     if findindex(words,badword.curse_content)!=-1 :
-            #         words[words.index(badword.curse_content)]='*'
-            # request.POST._mutable = mutable
-
             comment_form.CommentSave(current_post, current_user)
-            # return HttpResponseRedirect(request.path_info)
-            return HttpResponseRedirect("success")
+            return HttpResponseRedirect(""+post_id)
         if reply_form.is_valid():
             comment = Comment.objects.get(id=request.POST.get('numb'))
             reply_form.ReplySave(current_post, current_user, comment)
-            # return HttpResponseRedirect(request.path_info)
-            return HttpResponseRedirect("success")
+            return HttpResponseRedirect(""+post_id)
 
-    # 	return render (request,"posts/post_page.html",{"post":Post.objects.get(id=p_id)})
-    # def new_post(request):
-    # 	form=PostForm()
-    # 	if request.method=="POST":
-    # 		form=PostForm(request.POST)
-    # 		if form.is_valid():
-    # 			obj = form.save(commit=False)
-    # 			obj.user_id = request.user
-    # 			obj.time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-    # 			return HttpResponseRedirect('/bloggawy/posts')
-    # 	return render(request,"posts/new.html",{"form":form})
-
-    # I have fix some problem here to display the recent comment in the top of comments
     comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-id')
     try:
         like_status = Like.objects.get(like_post=current_post, like_user=current_user)
@@ -263,6 +189,11 @@ def comment(request, post_id):
 
     like_count = Like.objects.filter(like_type=True, like_post=current_post).count()
     dislike_count = Like.objects.filter(like_type=False, like_post=current_post).count()
+    try:
+        three_recent_posts = Post.objects.all().order_by('-id')[:3]
+    except ObjectDoesNotExist:
+        three_recent_posts = None
+
     context = {
         "current__post": current_post,
         "form": comment_form,
@@ -272,20 +203,7 @@ def comment(request, post_id):
         "like": like_status,
         "likes": like_count,
         "dislikes": dislike_count,
+        "recentposts":three_recent_posts,
     }
-    # return HttpResponseRedirect(request.path_info)
+
     return render(request, "web/post_page.html", context)
-
-# To send variables implecitly
-# form = CreateASomething(request.POST)
-# if form.is_valid():
-#     obj = form.save(commit=False)
-#     obj.field1 = request.user
-#     obj.save()
-
-
-# To check for Authentication
-# if request.request.user.is_authenticated():
-#     ... # Do something for logged-in users.
-# else:
-#     ... # Do something for anonymous users.
