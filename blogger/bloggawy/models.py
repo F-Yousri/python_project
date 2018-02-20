@@ -21,9 +21,16 @@ class Post(models.Model):
     post_user = models.ForeignKey(User)
     post_category = models.ForeignKey(Category, null=True)
 
-    def __str__(self):
-        return self.post_title
 
+def __str__(self):
+    return self.post_title
+
+
+def findindex(L, obj):
+    try:
+        return L.index(obj)
+    except ValueError:
+        return -1
 
 
 class Comment(models.Model):
@@ -33,9 +40,26 @@ class Comment(models.Model):
     comment_user = models.ForeignKey(User, null=True)
     comment_post = models.ForeignKey(Post, null=True)
 
+    def replacecurse(self):
+        words = self.comment_content.split()
+        all_bad_words = Curse.objects.all()
+        bads = []
+        new_words=[]
+        for bad in all_bad_words:
+            bads.append(bad.curse_content)
+        for word in words:
+            if findindex(bads, word) != -1:
+                stars = '*' * len(word)
+                word = stars
+                new_words.append(word)
+            else :
+                new_words.append(word)
+        self.comment_content=" ".join(new_words)
+
+
+
     def __str__(self):
         return self.comment_content
-
 
 
 class Reply(models.Model):
@@ -43,21 +67,35 @@ class Reply(models.Model):
     reply_time = models.DateTimeField(auto_now_add=True)
     # we can make enhancement here
     reply_user = models.ForeignKey(User)
-    #reply_comments = models.ManyToManyField(Comment)
+    # reply_comments = models.ManyToManyField(Comment)
     reply_comments = models.ForeignKey(Comment, null=True)
+
+    def replacecurse(self):
+        words = self.reply_content.split()
+        all_bad_words = Curse.objects.all()
+        bads = []
+        new_words=[]
+        for bad in all_bad_words:
+            bads.append(bad.curse_content)
+        for word in words:
+            if findindex(bads, word) != -1:
+                stars = '*' * len(word)
+                word = stars
+                new_words.append(word)
+            else :
+                new_words.append(word)
+        self.reply_content=" ".join(new_words)
+
 
     def __str__(self):
         return self.reply_content
 
 
-
 class Curse(models.Model):
     curse_content = models.CharField(max_length=20)
 
-
     def __str__(self):
         return self.curse_content
-
 
 
 # we need this table Manually

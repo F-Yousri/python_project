@@ -18,7 +18,9 @@ class CommentForm(forms.ModelForm):
         comment = self.save(commit=False)
         comment.comment_post = current_post
         comment.comment_user = current_user
+        comment.replacecurse()
         comment.save()  # to save in database
+
 
     class Meta:
         model = Comment
@@ -40,6 +42,7 @@ class ReplyForm(forms.ModelForm):
         reply.reply_post = current_post
         reply.reply_user = current_user
         reply.reply_comments = comment
+        reply.replacecurse()
         reply.save()  # to save in database
 
     class Meta:

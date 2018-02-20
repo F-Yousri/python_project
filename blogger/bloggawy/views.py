@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Post
 from .models import User
 from .models import Comment
+from .models import Curse
 # from .forms import PostForm
 from .forms import CommentForm
 from .forms import ReplyForm
@@ -183,6 +184,7 @@ def error(request):
     return render(request, "web/error.html")
 
 
+
 # view post
 def comment(request, post_id):
     comment_form = CommentForm()
@@ -192,7 +194,6 @@ def comment(request, post_id):
     except Post.DoesNotExist:
         return render(request, "web/errorpostpage.html")
     if request.user.is_authenticated():
-
         current_user = request.user
     else:
         current_user = None
@@ -200,9 +201,34 @@ def comment(request, post_id):
     if request.method == "POST":
         reply_form = ReplyForm(request.POST)
         comment_form = CommentForm(request.POST, initial={'comment_post_id': post_id})
+
         if comment_form.is_valid():
             # comment_form.save()
             # current_user = User.objects.get(id=1)
+            # words=request.POST.get('comment_content').split()
+            # all_bad_words = Curse.objects.all()
+            #
+            #
+            # badwords=[]
+            # for badword in all_bad_words:
+            #     badwords.append(badword.curse_content.lower())
+            #
+            # for word in words:
+            #     if word.lower() in badwords:
+            #         stars='*' * len(word)
+            #         words=str(words).replace(word,stars)
+            #
+            # words = request.POST.get('comment_content').split()
+            # all_bad_words = Curse.objects.all()
+
+            # mutable = request.POST._mutable
+            # request.POST._mutable = True
+
+            # for badword in all_bad_words:
+            #     if findindex(words,badword.curse_content)!=-1 :
+            #         words[words.index(badword.curse_content)]='*'
+            # request.POST._mutable = mutable
+
             comment_form.CommentSave(current_post, current_user)
             # return HttpResponseRedirect(request.path_info)
             return HttpResponseRedirect("success")
