@@ -33,24 +33,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home2.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="home2.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bloggawy/templates/web/home2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="129" column="18" lean-forward="true" selection-start-line="129" selection-start-column="18" selection-end-line="129" selection-end-column="18" />
+            <state relative-caret-position="105">
+              <caret line="153" column="5" lean-forward="true" selection-start-line="153" selection-start-column="5" selection-end-line="153" selection-end-column="5" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#5058#5065#0" expanded="true" />
+                <element signature="e#5445#5452#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bloggawy/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="36">
-              <caret line="2" column="8" lean-forward="false" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
-              <folding />
+              <caret line="101" column="20" lean-forward="true" selection-start-line="101" selection-start-column="20" selection-end-line="101" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#72#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -114,9 +118,9 @@
         <option value="$PROJECT_DIR$/bloggawy/admin.py" />
         <option value="$PROJECT_DIR$/blogger/urls.py" />
         <option value="$PROJECT_DIR$/bloggawy/urls.py" />
-        <option value="$PROJECT_DIR$/bloggawy/views.py" />
         <option value="$PROJECT_DIR$/bloggawy/templates/web/header.html" />
         <option value="$PROJECT_DIR$/bloggawy/templates/web/footer.html" />
+        <option value="$PROJECT_DIR$/bloggawy/views.py" />
         <option value="$PROJECT_DIR$/bloggawy/templates/web/home2.html" />
       </list>
     </option>
@@ -128,8 +132,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="409" />
-    <option name="y" value="214" />
+    <option name="x" value="455" />
+    <option name="y" value="75" />
     <option name="width" value="1305" />
     <option name="height" value="772" />
   </component>
@@ -277,7 +281,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-          <folding />
+          <folding>
+            <element signature="e#0#72#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -342,7 +348,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#72#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -445,21 +453,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bloggawy/templates/web/home2.html">
+    <entry file="file://$PROJECT_DIR$/bloggawy/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="129" column="18" lean-forward="true" selection-start-line="129" selection-start-column="18" selection-end-line="129" selection-end-column="18" />
+        <state relative-caret-position="36">
+          <caret line="101" column="20" lean-forward="true" selection-start-line="101" selection-start-column="20" selection-end-line="101" selection-end-column="20" />
           <folding>
-            <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#0#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bloggawy/views.py">
+    <entry file="file://$PROJECT_DIR$/bloggawy/templates/web/home2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="8" lean-forward="false" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="105">
+          <caret line="153" column="5" lean-forward="true" selection-start-line="153" selection-start-column="5" selection-end-line="153" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#5058#5065#0" expanded="true" />
+            <element signature="e#5445#5452#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

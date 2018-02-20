@@ -1,3 +1,6 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
 from django.shortcuts import render
 
 from .models import Post
@@ -93,7 +96,11 @@ def home(request):
     p1 = Category.subscribers.through.objects.filter(user_id=request.user.id)
     p2 = []
     try:
-        recent_five_posts = Post.objects.all().order_by('-id')
+
+        recent_all_posts = Post.objects.all().order_by('-id')
+        paginator = Paginator(contact_list, 5)  # Show 5 contacts per page
+        page = request.GET.get('page')
+        recent_five_posts = paginator.get_page(page)
     except:
         recent_five_posts=None
 
