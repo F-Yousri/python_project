@@ -1,0 +1,11 @@
+{% extends "admin/adminpaneltwo.html" %}
+{% block main_block %}
+<br>
+<br>
+<br>
+<br>
+<form method='post' enctype="multipart/form-data"> {% csrf_token %}
+{{form.as_p}}
+<button type='submit'>save</button>
+</form>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html >
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'bloggawy/style/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bloggawy/style/fady.css' %}">
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <title>Bloggawy</title>
+  </head>
+
+
+  <body>
+<div class="fluid-container">
+
+     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><img height="40px" width="40px" src="{% static 'images/logo.jpg' %}" class="img-fluid  img-thumbnail" /></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item">
+        {% if user.is_authenticated %}
+        <a class="nav-link" href="logout">logout</a>
+        {% endif %}
+      </li>
+      {% if user.is_staff %}
+      <li class="nav-item">
+        <a class="nav-link" href="#">admin access</a>
+      </li>
+      {% endif %}
+          <li class="nav-item  ">
+        {% if user.is_authenticated %}
+
+        <h3 style="color: red ; margin-left:1500px" > {{user.username}}</h3>
+        {% else %}
+        <a class="nav-link" href="login_form">login</a>
+
+      </li>
+              <li class="'nav-item">
+      <a class="nav-link" href="registration">registration</a>
+    </li>
+
+        {% endif %}
+
+  </ul>
+  </div>
+</nav>
+  </div>

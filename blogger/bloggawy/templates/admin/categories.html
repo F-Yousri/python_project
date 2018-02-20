@@ -1,0 +1,57 @@
+{% extends "admin/adminpaneltwo.html" %}
+{% block main_block %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br>
+<br>
+<br>
+
+<div class="container">
+  <h2 class="text-center">Categories</h2>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name of Category </th>
+        <br>
+        <br>
+        <a href="/bloggawy/Category/add"><button type="button" class="btn btn-success pull-right" >Add Category</button></td>
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+
+    	{%for cs in allcategories %}
+				
+					<tr>
+						  <td>{{cs.category_name }}</td>
+						  
+              <td><a href="/bloggawy/{{cs.id}}/Category/delete"><button type="button" class="btn btn-danger">Delete Category</button></td></a>
+              <td><a href="/bloggawy/{{cs.id}}/Category/edit"><button type="button" class="btn btn-primary" >Edit Category</button></td></a>
+              
+
+
+					</tr>
+				
+
+			{% endfor %}
+
+         
+     
+   </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
+
+{% endblock %}

@@ -1,0 +1,129 @@
+
+  	.wrapper {
+    display: flex;
+    align-items: stretch;
+	} 
+	#sidebar {
+    min-width: 30px;
+    max-width: 300px;
+	}
+
+	#sidebar.active {
+    margin-left: -250px;
+	}   
+
+	a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content: '\e259';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'Glyphicons Halflings';
+    font-size: 0.6em;
+	}
+
+	a[aria-expanded="true"]::before {
+    content: '\e260';
+	}
+	#sidebar {
+	    min-width: 150px;
+	    max-width: 300px;
+	    min-height: 100vh;
+	}	
+
+	body {
+	    font-family: 'Poppins', sans-serif;
+	    background: #fafafa;
+	}
+
+	p {
+	    font-family: 'Poppins', sans-serif;
+	    font-size: 1.1em;
+	    font-weight: 300;
+	    line-height: 1.7em;
+	    color: #999;
+	}
+
+	a, a:hover, a:focus {
+	    color: inherit;
+	    text-decoration: none;
+	    transition: all 0.3s;
+	}
+
+	#sidebar {
+	    /* don't forget to add all the previously mentioned styles here too */
+	    background: #37474F;
+	    color: #fff;
+	    transition: all 0.3s;
+	}
+
+	#sidebar .sidebar-header {
+	    padding: 20px;
+	    background: #37474F;
+	}
+
+	#sidebar ul.components {
+	    padding: 20px 0;
+	    border-bottom: 1px solid #37474F;
+	}
+
+	#sidebar ul p {
+	    color: #fff;
+	    padding: 10px;
+	}
+
+	#sidebar ul li a {
+	    padding: 10px;
+	    font-size: 1.1em;
+	    display: block;
+	}
+	#sidebar ul li a:hover {
+	    color: #7386D5;
+	    background:#37474F;
+	}
+
+	#sidebar ul li.active > a, a[aria-expanded="true"] {
+	    color: #fff;
+	    background: #37474F;
+	}
+	ul ul a {
+	    font-size: 0.9em !important;
+	    padding-left: 30px !important;
+	    background: #6d7fcc;
+	}
+
+	.e:hover{
+	   background-color:gray;
+	}
+
+	.view{
+    border-right: 1px solid #ddd;
+    border-top: 0;
+    border-left: 0 ; 
+    border-bottom: 0;
+	}
+	footer{
+		background-color: black;
+	}
+	.title{
+		font-size: 24px;
+		font:bold;
+	}
+	#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+}
+
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}

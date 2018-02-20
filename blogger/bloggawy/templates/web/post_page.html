@@ -1,0 +1,234 @@
+{% extends 'web/base.html' %}
+<!-- {% load static %} -->
+{% block body %}
+<!DOCTYPE html>
+{% extends "web/base.html" %}
+{% load static %}
+{% block body %}
+<html>
+<head>
+
+    <!-- Required meta tags for Bootstrap -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Bloggawy post</title>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
+    <title>
+        Post Page
+    </title>
+
+    <style>
+
+        /*.comment_area {*/
+
+        /*border: 2px solid #bbb;*/
+
+        /*}*/
+
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- Navigation Bar -->
+<div class=" container">
+
+    <div class="container container">
+        <div class="row mt-5">
+            <div class="list-group col-4 col-xl-3 mt-2">
+                <div class="container badge badge-secondary">Recent posts</div>
+                {% for post in recentposts %}
+                <a href="/bloggawy/post/{{post.id}}"
+                   class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h4 class="mb-1">{{post.post_title}}</h4>
+                        <small>{{post.post_time}}</small>
+                    </div>
+                    <p class="mb-1">{{post.post_content|linebreaksbr|slice:":100"}}</p>
+                    <small>{{post.post_user}}</small>
+                </a>
+                {% endfor %}
+            </div>
+            <!-- Article -->
+            <div class=" col-8 col-xl-9 mt-2">
+                <div class="card mb-3">
+                    <img class="card-img-top mw-100 mh-100"
+                         src="{%static 'bloggawy/images/'%}{{current__post.post_photo}} "
+                         alt="Card image cap">
+                    <div class="card-body mt-4">
+                        <h1 class="card-title text-center">{{current__post.post_title}}</h1>
+                        <p class="card-text mt-4">{{current__post.post_content|linebreaksbr}}</p>
+                        <p class="card-text mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                By : {{current__post.post_user}} &#9679;
+                                <small class="text-muted">{{current__post.post_time}}</small>
+                            </div>
+                        </div>
+
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Article -->
+
+
+    <div class="card mt-4 container">
+        <div class="card-header text-center">
+            {% if user.is_authenticated %}
+            <div class="container">
+                <div class="btn-group"></div>
+                <div class="btn btn-success btn-lg active like">
+                    {% if like.like_type == True %}
+                    <span class="like-text">liked</span>
+                    {% else %}
+                    <span class="like-text">like</span>
+                    {% endif %}
+                    <span id="likecount" class="badge badge-light">{{ likes }}</span>
+                </div>
+                <div class="btn btn-danger btn-lg active dislike">
+                    {% if like.like_type == False %}
+                    <span class="dislike-text">disliked</span>
+                    {% else %}
+                    <span class="dislike-text">dislike</span>
+                    {% endif %}
+                    <span id="dislikecount" class="badge badge-light">{{ dislikes }}</span>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="card-body text-center">
+            <p class="card-text">
+                {% if user.is_authenticated %}
+            <form method="POST">{% csrf_token %}
+                {{ form.errors }}
+                {{ form.comment_content }}
+                <div>
+                    <button type="submit" class="btn btn-primary mb-2">Add comment</button>
+                </div>
+            </form>
+            {% endif %}
+            </p>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="comment_area">
+                <h3 class="border-bottom border-gray pb-2 mb-0 text-left" style=' width: 200px'>Comments</h3>
+                {% for comment in comments %}
+
+                <div class="media text-muted pt-3">
+                    <img data-src="holder.js/32x32?theme=thumb&amp;
+            bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32"
+                         class="mr-2 rounded" style="width: 32px;
+            height: 32px;" src="{%  static 'bloggawy/images/commentphoto.png' %}" data-holder-rendered="true">
+                    <p style='padding: 3px; word-break: break-all; word-wrap: break-word;'
+                       class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray col-6 col-md-8"
+                       width="100">
+                        <strong class="d-block text-gray-dark">@{{comment.comment_user.username}} on
+                            {{comment.comment_time}}</strong>
+                        {{ comment.comment_content|linebreaksbr }}
+                    </p>
+                </div>
+
+                <div class="comment_replies">
+                    <!----reply----->
+                    {% if user.is_authenticated %}
+                    <p class="card-text">
+                    <form method="POST">{% csrf_token %}
+                        {{ formr.errors }}
+                        {{ formr.reply_content }}
+                        <div>
+                            <input id="numb" name="numb" type="number" style="display:None"
+                                   value="{{ comment.id }}"/>
+                            <button type="submit" class="btn btn-primary btn-sm mb-2">Add replay</button>
+                        </div>
+                    </form>
+                    </p>
+                    {% endif %}
+                    <!----..----->
+                    {% for reply in replies %}
+                    {% if comment.id == reply.reply_comments_id %}
+                    <!-- repley -->
+                    <div class="container" style="margin-left: 30px;">
+                        <div class="media text-muted  mt-3">
+                            <img data-src="holder.js/32x32?theme=thumb&amp;
+              bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32"
+                                 class="mr-2 rounded" style="width: 32px;
+              height: 32px;" src="{%  static 'bloggawy/images/reply.png' %}" data-holder-rendered="true">
+                            <p style='padding: 3px; word-break: break-all; word-wrap: break-word;'
+                               class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray col-6 col-md-8"
+                               width="100">
+                                <strong class="d-block text-gray-dark">@{{reply.reply_user.username}} on
+                                    {{reply.reply_time}} test</strong>
+                                {{ reply.reply_content|linebreaksbr }}
+
+                            </p>
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <!-- repley -->
+
+                {% endfor %}
+
+
+            </div>
+
+            <!--enhancement make the url with ajax-->
+            <small class="d-block text-right mt-3">
+                <!--this is enhancement-->
+                <a href="#">All comments</a>
+            </small>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<!-- jQuery UI !-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!-- this file since the bootstarb file of jquery have problem with ajax -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- my javascript code -->
+<script src="{% static 'bloggawy/includes/postpagejs.js' %}"></script>
+<script>
+   $(function(){
+    $('#posts').autocomplete({
+       source:"get_post/",
+       select: function (event, ui) {
+            window.location ="/bloggawy/post/" + ui.item.id
+        },
+       minLength: 2,
+    });
+    });
+    </script>
+</body>
+
+</html>
+
+{% endblock %}
+
