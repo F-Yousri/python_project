@@ -9,7 +9,7 @@ from .forms import ReplyForm
 
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from bloggawy.models import Post
 # from .forms import PostForm
@@ -25,12 +25,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import logout as django_logout
 from .models import Category
 
+
 # from django.http import JsonResponse
 
 # just for store the like in the model
 def like(request, post_id):
     current_post = Post.objects.get(id=post_id)
-    if request.user.is_authenticated() :
+    if request.user.is_authenticated():
 
         current_user = request.user
     else:
@@ -65,7 +66,7 @@ def dislike(request, post_id):
     try:
         current_like_object = Like.objects.get(like_post=current_post,
                                                like_user=current_user)  # state for the current user
-        if current_like_object.like_type == True :
+        if current_like_object.like_type == True:
             current_like_object.like_type = False
             current_like_object.save()
         else:
@@ -84,83 +85,82 @@ def dislike(request, post_id):
     return HttpResponse("Dislike Done");
 
 
-
 # Create your views here.
 
 
 def home(request):
-	all_categories = Category.objects.all()
-	p1 = Category.subscribers.through.objects.filter(user_id = request.user.id)
-	p2=[]
-	for i in p1:
-		p2.append(i.category_id)
+    all_categories = Category.objects.all()
+    p1 = Category.subscribers.through.objects.filter(user_id=request.user.id)
+    p2 = []
+    try:
+        recent_five_posts = Post.objects.all().order_by('-id')
+    except:
+        recent_five_posts=None
 
 
+    for i in p1:
+        p2.append(i.category_id)
 
+    # data = {'data':p1}
+    context = {"allCategories": all_categories,
+               'subscribercategory': p2,
+               "posts":recent_five_posts
+               }
+    # return HttpResponseRedirect("/user/home.html")
+    return render(request, "web/home2.html", context)
 
-
-
-	# data = {'data':p1}
-	context = {"allCategories" : all_categories,
-				'subscribercategory':p2
-	}
-	# return HttpResponseRedirect("/user/home.html")
-	return render(request,"web/home2.html",context)
 
 @login_required
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect("/bloggawy/home")
-    
 
-def login_form(request) :
 
-	if request.method == 'POST' :
+def login_form(request):
+    if request.method == 'POST':
 
-		name = request.POST['username']
-		password = request.POST['password']
+        name = request.POST['username']
+        password = request.POST['password']
 
-		user = authenticate(username = name, password=password)
+        user = authenticate(username=name, password=password)
 
-		if user is not None:
-			if user.is_active :
-				login(request,user)			
-				return HttpResponseRedirect("/bloggawy/home")
-		else:
-			st = 0
-			context = {"login" : st}
-			return render(request,'web/login_form.html',context)		
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect("/bloggawy/home")
+        else:
+            st = 0
+            context = {"login": st}
+            return render(request, 'web/login_form.html', context)
 
-	return render(request,'web/login_form.html')
+    return render(request, 'web/login_form.html')
 
 
 def create(request):
-	if request.method == 'GET':
-		category_id = request.GET['category']
-		user_id = request.GET['user']
-		Type = request.GET['type']
-		if(Type == 'Subscribe'):
-			
-			# p1 = User.objects.create(
-			# 		username = subscribers
-			# 	)
-			# p1.save()
-			a1 = Category.subscribers.through.objects.create(
-					category_id = category_id,
-					user_id = user_id
-				)
-			# a1.save()
-			# a1.subscribers.add(p1)
-			# # a1.save()
-		elif(Type == 'UnSubscribe'):
-			a1 = Category.subscribers.through.objects.filter(
-					category_id = category_id,
-					user_id = user_id
-				)
-			a1.delete()			
-		return HttpResponse("success")
+    if request.method == 'GET':
+        category_id = request.GET['category']
+        user_id = request.GET['user']
+        Type = request.GET['type']
+        if (Type == 'Subscribe'):
 
-
+            # p1 = User.objects.create(
+            # 		username = subscribers
+            # 	)
+            # p1.save()
+            a1 = Category.subscribers.through.objects.create(
+                category_id=category_id,
+                user_id=user_id
+            )
+        # a1.save()
+        # a1.subscribers.add(p1)
+        # # a1.save()
+        elif (Type == 'UnSubscribe'):
+            a1 = Category.subscribers.through.objects.filter(
+                category_id=category_id,
+                user_id=user_id
+            )
+            a1.delete()
+        return HttpResponse("success")
 
 
 # Create your views here.
@@ -169,7 +169,6 @@ def all_posts(request):
 
 
 def post_details(request, p_id):
-
     return render(request, "posts/post_page.html", {"post": Post.objects.get(id=p_id)})
 
 
@@ -206,26 +205,25 @@ def comment(request, post_id):
             # comment_form.save()
             # current_user = User.objects.get(id=1)
             comment_form.CommentSave(current_post, current_user)
-            #return HttpResponseRedirect(request.path_info)
+            # return HttpResponseRedirect(request.path_info)
             return HttpResponseRedirect("success")
         if reply_form.is_valid():
             comment = Comment.objects.get(id=request.POST.get('numb'))
             reply_form.ReplySave(current_post, current_user, comment)
-            #return HttpResponseRedirect(request.path_info)
+            # return HttpResponseRedirect(request.path_info)
             return HttpResponseRedirect("success")
 
-	return render (request,"posts/post_page.html",{"post":Post.objects.get(id=p_id)})
-def new_post(request):
-	form=PostForm()
-	if request.method=="POST":
-		form=PostForm(request.POST)
-		if form.is_valid():
-			obj = form.save(commit=False)
-			obj.user_id = request.user
-			obj.time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-			return HttpResponseRedirect('/bloggawy/posts')
-	return render(request,"posts/new.html",{"form":form})
-
+    # 	return render (request,"posts/post_page.html",{"post":Post.objects.get(id=p_id)})
+    # def new_post(request):
+    # 	form=PostForm()
+    # 	if request.method=="POST":
+    # 		form=PostForm(request.POST)
+    # 		if form.is_valid():
+    # 			obj = form.save(commit=False)
+    # 			obj.user_id = request.user
+    # 			obj.time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+    # 			return HttpResponseRedirect('/bloggawy/posts')
+    # 	return render(request,"posts/new.html",{"form":form})
 
     # I have fix some problem here to display the recent comment in the top of comments
     comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-id')
@@ -250,7 +248,7 @@ def new_post(request):
         "likes": like_count,
         "dislikes": dislike_count,
     }
-    #return HttpResponseRedirect(request.path_info)
+    # return HttpResponseRedirect(request.path_info)
     return render(request, "web/post_page.html", context)
 
 # To send variables implecitly
@@ -266,4 +264,3 @@ def new_post(request):
 #     ... # Do something for logged-in users.
 # else:
 #     ... # Do something for anonymous users.
-
