@@ -1,9 +1,13 @@
+{% extends 'web/base.html' %}
+<!-- {% load static %} -->
+{% block body %}
 <!DOCTYPE html>
 {% extends "web/base.html" %}
 {% load static %}
 {% block body %}
 <html>
 <head>
+
     <!-- Required meta tags for Bootstrap -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,10 +15,28 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Bloggawy post</title>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
+    <title>
+        Post Page
+    </title>
+
+    <style>
+
+        /*.comment_area {*/
+
+        /*border: 2px solid #bbb;*/
+
+        /*}*/
+
+
+    </style>
+
 </head>
 
 <body>
-<!-- Navigation Bar -->
 
 <!-- Navigation Bar -->
 <div class=" container">
@@ -173,6 +195,12 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<!-- jQuery UI !-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -187,7 +215,20 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- my javascript code -->
 <script src="{% static 'bloggawy/includes/postpagejs.js' %}"></script>
+<script>
+   $(function(){
+    $('#posts').autocomplete({
+       source:"get_post/",
+       select: function (event, ui) {
+            window.location ="/bloggawy/post/" + ui.item.id
+        },
+       minLength: 2,
+    });
+    });
+    </script>
 </body>
+
 </html>
 
 {% endblock %}
+

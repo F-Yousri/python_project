@@ -1,0 +1,57 @@
+{% extends "admin/adminpaneltwo.html" %}
+{% block main_block %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br>
+<br>
+<br>
+
+<div class="container">
+  <h2 class="text-center">Posts </h2>
+  <br>
+  <br>
+   <td><a href="/bloggawy/Post/addpost"><button type="button" class="btn btn-success pull-right" >Add Post</button></td></a> 
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Time</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    	{%for ps in allposts %}
+				
+					<tr>
+						  <td>{{ps.post_title}}</td>
+						  <td>{{ps.post_time}}</td>
+						  <td><a href="/bloggawy/{{ps.id}}/Post/showpost"><button type="button" class="btn btn-warning" >Show More</button></td></a>
+              <td><a href="/bloggawy/{{ps.id}}/Post/deletepost"><button type="button" class="btn btn-danger">Delete Post</button></td></a>
+              <td><a href="/bloggawy/{{ps.id}}/Post/editpost"><button type="button" class="btn btn-primary" >Edit Post</button></td></a>
+             
+
+
+					</tr>
+				
+
+			{% endfor %}
+
+         
+     
+   </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
+
+{% endblock %}

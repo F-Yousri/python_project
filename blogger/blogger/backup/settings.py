@@ -13,6 +13,16 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+
+from .email_info import EMAIL_USE_TLS , EMAIL_HOST , EMAIL_HOST_USER , EMAIL_HOST_PASSWORD , EMAIL_PORT
+
+
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST = EMAIL_HOST
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_PORT = EMAIL_PORT
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -36,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bloggawy',
         'USER': 'root',
-        'PASSWORD': 'sql@iti123',
+        'PASSWORD': '751991',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -99,4 +110,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+<<<<<<< HEAD:blogger/blogger/settings.py
+STATIC_URL = os.path.join(BASE_DIR, 'bloggawy/static/bloggawy/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'bloggawy/static/bloggawy/images/')
+MEDIA_URL = '/bloggawy/images/'
+=======
 STATIC_URL = '/static/'
+>>>>>>> development:blogger/blogger/backup/settings.py

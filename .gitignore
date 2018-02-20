@@ -1,5 +1,4 @@
 /blogger/newapp/templates/registration_page/HTML5Application/nbproject/private/
-<<<<<<< HEAD
 
 # Created by https://www.gitignore.io/api/linux,django,pycharm,sublimetext
 
@@ -131,6 +130,5 @@ GitHub.sublime-settings
 
 # End of https://www.gitignore.io/api/linux,django,pycharm,sublimetext
 
-=======
 /blogger/blogger/settings.py
->>>>>>> A_Helal_branch
+

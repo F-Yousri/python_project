@@ -1,157 +1,113 @@
+{% load static %}
+<!-- data-placeholder="&#xf800;" -->
 <!DOCTYPE html>
-<!--
-    Author     : ahmedhelal
--->
-<html>
- <head>
-  <title>Sign up</title>
-  <!-- Required meta tags for Bootstrap -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<html lang="en">
+<head>
+  <title>signup</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/favicon.ico' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/font-awesome.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/material-design-iconic-font.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/animate.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/hamburgers.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/animsition.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/select2.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/daterangepicker.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/main.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/util.css' %}" />
+
+</head>
+<body>
+
+  <div class="limiter">
+    <div class="container-login100" style="background-image: url('{% static 'images/bg-01.jpg' %}');">
+      <div class="wrap-login100">
+
+<form class="login100-form validate-form" method="post">
+  {% csrf_token %}
+  {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+{% if errormail == 1 %}
+<div class="alert-danger"> Email Already Exist</div>
+{% endif %}
+<span class="login100-form-logo">
+            <i class="fa fa-bitcoin"></i>
+          </span>
+
+          <span class="login100-form-title p-b-34 p-t-27">
+            SignUp
+          </span>
+
+          <div class="wrap-input100 validate-input" data-validate = "Enter username">
+            <input class="input100" type="text"  {{ form.username.id_for_input }}
+             name="username" placeholder="Username">
+            <span class="focus-input100"></span>
+          </div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                      <input class="input100" type="text" {{ form.email.id_for_input }}
+                    name="email" placeholder="Email">
+            <span class="focus-input100"></span>
+            
+          </div>
 
 
-  <style>
+          <div class="wrap-input100 validate-input" data-validate="Enter password" id="password">
+            <input class="input100" type="password" name="password1" {{ form.password1.id_for_input }}
+            placeholder="Password">
+            <span class="focus-input100"></span>
+          </div>
 
-  </style>
- </head>
- <body>
+          <div class="wrap-input100 validate-input" data-validate="Confirm password" id="con_password">
+            <input class="input100" type="password" {{ form.password2.id_for_input }}
+           name="password2" placeholder="Confirm Password">
+            <span class="focus-input100" ></span>
+          </div>
 
-  <div class="container col-3 col-md-6  mt-5">
-   <form method="POST" class="needs-validation " novalidate>
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" type="submit">
+              Register
+            </button>
 
-    <div class="form-group ">
-     <!--<label for="validationCustomUsername">Username</label>-->
-     <div class="input-group">
-      <div class="input-group-prepend">
-       <span class="input-group-text" id="inputGroupPrepend">@</span>
+            <button class="login100-form-btn" type="reset">
+              Reset
+            </button>
+          </div>
+
+        
+        </form>
       </div>
-      <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
-      <div class="invalid-feedback">
-       Please choose a username.
-      </div>
-      <div class="valid-feedback">
-       Looks good!
-      </div>
-     </div>
     </div>
-
-    <div class="form-group">
-     <!--<input type="password" class="form-control"  placeholder="Email">-->
-     <!--<label for="validationCustom02">Password</label>-->
-     <input type="email" class="form-control" id="email" placeholder="Email" required>
-     <div class="valid-feedback">
-      Looks good!
-     </div>
-     <div class="invalid-feedback">
-      Please enter your email for examle : name@example.com.
-     </div>
-    </div>
-
-    <div class="form-group">
-     <!--<label for="validationCustom02">Password</label>-->
-     <input data-minlength="6" type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
-     <div class="valid-feedback">
-      Looks good!
-     </div>
-     <div class="invalid-feedback">
-      Please enter a password.
-     </div>
-    </div>
-
-    <div class="form-group">
-     <!--<label for="validationCustom01">Confirm Password</label>-->
-     <input id="inputPasswordConfirm" type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" required>
-     <div class="valid-feedback">
-      Looks good!
-     </div>
-     <div class="invalid-feedback mes">
-      Password does not match the confirm password.
-     </div>
-
-    </div>
-
-    <!--<input type="email" class="form-control"  placeholder="E-mail ex : name@example.com">-->
-
-
-    <button class="btn btn-primary col-12" type="submit">Submit form</button>
-
-   </form>
-
-
-
-
-
-
-
-
   </div>
+  
 
+  <div id="dropDownSelect1"></div>
+  
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/animsition.min.js' %}"></script>
+<script src="{% static 'js/popper.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/select2.min.js' %}"></script>
+<script src="{% static 'js/moment.min.js' %}"></script>
+<script src="{% static 'js/daterangepicker.js' %}"></script>
+<script src="{% static 'js/countdowntime.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script>
-
-
-
-   // Example starter JavaScript for disabling form submissions if there are invalid fields
-//for bootsrap
-
-
-
-
-//  
-//   $("#inputPasswordConfirm").on("keyup", function ()
-//   {
-//    if ( $("#inputPasswordConfirm").val == $("#inputPassword").val)
-//    {
-//      $("#inputPasswordConfirm").css("color", "green");
-//
-//     $(".error").removeClass("error").addClass("invalid-feedback").addClass("mes");
-//    }
-//    else
-//    {
-//      $("#inputPasswordConfirm").css("color", "red");
-//     $(".mes").addClass("error").removeClass("invalid-feedback");
-//
-//    }
-//
-//
-//   });
-
-
-
-
-   (function ()
-   {
-    'use strict';
-    window.addEventListener('load', function ()
-    {
-     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-     var forms = document.getElementsByClassName('needs-validation');
-     // Loop over them and prevent submission
-     var validation = Array.prototype.filter.call(forms, function (form)
-     {
-      form.addEventListener('submit', function (event)
-      {
-       if (form.checkValidity() === false)
-       {
-        event.preventDefault();
-        event.stopPropagation();
-       }
-       form.classList.add('was-validated');
-      }, false);
-     });
-    }, false);
-   })();
-
-
-
-
-
-  </script>
- </body>
+</body>
 </html>
+
