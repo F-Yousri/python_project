@@ -140,7 +140,7 @@ def success(request):
 def error(request):
 	return render(request, "web/error.html")
 
-def registeration(request):
+def registration(request):
 
 	if request.method == 'POST':
 		form = SignUpForm(request.POST)

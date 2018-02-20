@@ -13,9 +13,7 @@ urlpatterns = [
     url(r'^post/(?P<post_id>[0-9]+)/dislike/$', views.dislike),  # for dislike
     url(r'.success.', views.success),  # for success
     url(r'.error.', views.error),  # for errors
-    url(r'^registeration$',views.registeration),
-
-    '''Admin crud ops'''
+    url(r'^registration$',views.registration),
     url(r'^allusers$',views.allusers),
     url(r'^adminpanel$',views.allposts),
     url(r'^User/add$',views.adduser),
