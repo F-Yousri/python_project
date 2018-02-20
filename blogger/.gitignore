@@ -1,0 +1,6 @@
+.idea
+*.pyc
+settings.py
+test
+*.idea
+*.xml
