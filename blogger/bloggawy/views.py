@@ -1,6 +1,3 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-
 from django.shortcuts import render
 
 from .models import Post
@@ -96,14 +93,9 @@ def home(request):
     p1 = Category.subscribers.through.objects.filter(user_id=request.user.id)
     p2 = []
     try:
-
-        recent_all_posts = Post.objects.all().order_by('-id')
-        paginator = Paginator(contact_list, 5)  # Show 5 contacts per page
-        page = request.GET.get('page')
-        recent_five_posts = paginator.get_page(page)
-    except:
-        recent_five_posts=None
-
+        posts = Post.objects.all().order_by('-id')
+    except Post.DoesNotExis:
+        posts=None
 
     for i in p1:
         p2.append(i.category_id)
@@ -111,7 +103,7 @@ def home(request):
     # data = {'data':p1}
     context = {"allCategories": all_categories,
                'subscribercategory': p2,
-               "posts":recent_five_posts
+               "posts":posts
                }
     # return HttpResponseRedirect("/user/home.html")
     return render(request, "web/home2.html", context)

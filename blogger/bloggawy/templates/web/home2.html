@@ -20,11 +20,9 @@
                 {% if user.is_authenticated %}
 
                 {% if category.id in subscribercategory %}
-                <button class="btn btn-success ml-3 sub" id="{{request.user.id}}" name="{{category.id}}">UnSubscribe
-                </button>
+                <button class="btn btn-success ml-3 sub" id="{{request.user.id}}" name="{{category.id}}">UnSubscribe</button>
                 {% else %}
-                <button class="btn btn-success ml-3 sub" id="{{request.user.id}}" name="{{category.id}}">Subscribe
-                </button>
+                <button class="btn btn-success ml-3 sub" id="{{request.user.id}}" name="{{category.id}}">Subscribe</button>
                 {% endif %}
 
                 {% endif %}
@@ -91,10 +89,13 @@
 {% for post in posts %}
 
         <div class="card mb-3">
+
+            <a href="/bloggawy/post/{{post.id}}">
             <img class="card-img-top" style ="width: 735px;height: 180px" src="{%static 'bloggawy/images/'%}{{post.post_photo}}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{post.post_title}}</h5>
-                <p class="card-text">{{post.post_content|linebreaksbr}}</p>
+            </a>
+                <div class="card-body">
+                <h4 class="card-title">{{post.post_title}}</h4>
+                <p class="card-text">{{post.post_content|linebreaksbr|slice:":100"}}</p>
                 <p class="card-text">
                     <small class="text-muted">By : {{post.post_user}}&#9679;
 
@@ -157,21 +158,21 @@
 
 {% endfor %}
 
-<div class="pagination">
-    <span class="step-links">
-        {% if  post.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ post.previous_page_number }}">previous</a>
-        {% endif %}
+<!--<div class="pagination">-->
+    <!--<span class="step-links">-->
+        <!--{% if  post.has_previous %}-->
+            <!--<a href="?page=1">&laquo; first</a>-->
+            <!--<a href="?page={{ post.previous_page_number }}">previous</a>-->
+        <!--{% endif %}-->
 
-        <span class="current">
-            Page {{ post.id }} of {{ post.paginator.num_pages }}.
-        </span>
+        <!--<span class="current">-->
+            <!--Page {{ post.id }} of {{ post.paginator.num_pages }}.-->
+        <!--</span>-->
 
-        {% if  post.has_next %}
-            <a href="?page={{ post.next_page_number }}">next</a>
-            <a href="?page={{ post.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
+        <!--{% if  post.has_next %}-->
+            <!--<a href="?page={{ post.next_page_number }}">next</a>-->
+            <!--<a href="?page={{ post.paginator.num_pages }}">last &raquo;</a>-->
+        <!--{% endif %}-->
+    <!--</span>-->
+<!--</div>-->
 {% endblock %}
