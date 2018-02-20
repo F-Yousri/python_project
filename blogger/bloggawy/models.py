@@ -54,12 +54,11 @@ class Reply(models.Model):
 class Curse(models.Model):
     curse_content = models.CharField(max_length=20)
 
-<<<<<<< HEAD
+
     def __str__(self):
         return self.curse_content
 
-=======
->>>>>>> fady_branch
+
 
 # we need this table Manually
 # we handle error of the count like by code

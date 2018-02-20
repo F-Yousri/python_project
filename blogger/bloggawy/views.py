@@ -1,28 +1,29 @@
 from django.shortcuts import render
-<<<<<<< HEAD
+
 from .models import Post
 from .models import User
 from .models import Comment
 # from .forms import PostForm
 from .forms import CommentForm
 from .forms import ReplyForm
-=======
+
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login
 from django.http import HttpResponseRedirect
 from bloggawy.models import Post
 # from .forms import PostForm
->>>>>>> fady_branch
+
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from time import gmtime, strftime
-<<<<<<< HEAD
+
 from .models import Like
 from .models import Post
 from .models import Reply
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.contrib.auth import logout as django_logout
+from .models import Category
 
 # from django.http import JsonResponse
 
@@ -81,9 +82,8 @@ def dislike(request, post_id):
     if check_dislikes_counter > 10:
         current_post.delete()
     return HttpResponse("Dislike Done");
-=======
-from django.contrib.auth import logout as django_logout
-from .models import Category
+
+
 
 # Create your views here.
 
@@ -160,12 +160,7 @@ def create(request):
 			a1.delete()			
 		return HttpResponse("success")
 
-# @login_required
-# def logged_in_only(request):
-# 	# if request.user.is_authenticated():
-# 	context = {"logged" :1}
-# 	return render(request,'web/home2.html',context)
->>>>>>> fady_branch
+
 
 
 # Create your views here.
@@ -174,7 +169,7 @@ def all_posts(request):
 
 
 def post_details(request, p_id):
-<<<<<<< HEAD
+
     return render(request, "posts/post_page.html", {"post": Post.objects.get(id=p_id)})
 
 
@@ -218,7 +213,7 @@ def comment(request, post_id):
             reply_form.ReplySave(current_post, current_user, comment)
             #return HttpResponseRedirect(request.path_info)
             return HttpResponseRedirect("success")
-=======
+
 	return render (request,"posts/post_page.html",{"post":Post.objects.get(id=p_id)})
 def new_post(request):
 	form=PostForm()
@@ -230,7 +225,7 @@ def new_post(request):
 			obj.time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
 			return HttpResponseRedirect('/bloggawy/posts')
 	return render(request,"posts/new.html",{"form":form})
->>>>>>> fady_branch
+
 
     # I have fix some problem here to display the recent comment in the top of comments
     comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-id')
