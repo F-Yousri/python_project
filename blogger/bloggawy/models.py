@@ -37,6 +37,7 @@ class Comment(models.Model):
         return self.comment_content
 
 
+
 class Reply(models.Model):
     reply_content = models.CharField(max_length=1000)
     reply_time = models.DateTimeField(auto_now_add=True)
@@ -49,12 +50,16 @@ class Reply(models.Model):
         return self.reply_content
 
 
+
 class Curse(models.Model):
     curse_content = models.CharField(max_length=20)
 
+<<<<<<< HEAD
     def __str__(self):
         return self.curse_content
 
+=======
+>>>>>>> fady_branch
 
 # we need this table Manually
 # we handle error of the count like by code
