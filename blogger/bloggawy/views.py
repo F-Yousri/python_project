@@ -10,6 +10,8 @@ from  .models import Post
 from  .models import Category
 from  .models import Curse
 from  .models import Tag
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -27,6 +29,24 @@ from django.db.models import Q
 # from django.http import JsonResponse
 
 # just for store the like in the model
+def listpost(request):
+
+    post_list=Post.objects.all().order_by("-post_time")
+    paginator = Paginator(post_list, 5)
+    page=request.GET.get('post')
+    try:
+        posts=paginator.page(page)
+    except PageNotAnInteger:
+        posts=paginator.page(1)
+
+    except EmptyPage:
+        posts=paginator.page(paginator.num_pages)
+
+    return render(request,"admin/listposts.html",{"posts":posts}) 
+
+
+
+
 def get_post(request):
     
     q = request.GET.get('term','')
@@ -114,6 +134,8 @@ def new_post(request):
 
 def index(request):
     return render(request, "web/index.html")  # http://127.0.0.1:8000/opensource/
+def useraddandall(request):
+    return render(request,"admin/userallnduseradd.html")
 
 
 def success(request):

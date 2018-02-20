@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'.success.', views.success),  # for success
     url(r'.error.', views.error),  # for errors
     url(r'^registeration$',views.registeration),
+    url(r'^listposts$',views.listpost),
+    url(r'^useraddandall$',views.useraddandall),
     url(r'^allusers$',views.allusers),
     url(r'^User/add$',views.adduser),
     url(r'^(?P<st_id>[0-9]+)/User/edit$',views.edituser),
