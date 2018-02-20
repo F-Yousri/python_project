@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--
+    Author     : ahmedhelal
+-->
+<html>
+ <head>
+  <title>Sign up</title>
+  <!-- Required meta tags for Bootstrap -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+
+  </style>
+ </head>
+ <body>
+
+  <div class="container col-3 col-md-6  mt-5">
+   <form method="POST" class="needs-validation " novalidate>
+
+    <div class="form-group ">
+     <!--<label for="validationCustomUsername">Username</label>-->
+     <div class="input-group">
+      <div class="input-group-prepend">
+       <span class="input-group-text" id="inputGroupPrepend">@</span>
+      </div>
+      <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+      <div class="invalid-feedback">
+       Please choose a username.
+      </div>
+      <div class="valid-feedback">
+       Looks good!
+      </div>
+     </div>
+    </div>
+
+    <div class="form-group">
+     <!--<input type="password" class="form-control"  placeholder="Email">-->
+     <!--<label for="validationCustom02">Password</label>-->
+     <input type="email" class="form-control" id="email" placeholder="Email" required>
+     <div class="valid-feedback">
+      Looks good!
+     </div>
+     <div class="invalid-feedback">
+      Please enter your email for examle : name@example.com.
+     </div>
+    </div>
+
+    <div class="form-group">
+     <!--<label for="validationCustom02">Password</label>-->
+     <input data-minlength="6" type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
+     <div class="valid-feedback">
+      Looks good!
+     </div>
+     <div class="invalid-feedback">
+      Please enter a password.
+     </div>
+    </div>
+
+    <div class="form-group">
+     <!--<label for="validationCustom01">Confirm Password</label>-->
+     <input id="inputPasswordConfirm" type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" required>
+     <div class="valid-feedback">
+      Looks good!
+     </div>
+     <div class="invalid-feedback mes">
+      Password does not match the confirm password.
+     </div>
+
+    </div>
+
+    <!--<input type="email" class="form-control"  placeholder="E-mail ex : name@example.com">-->
+
+
+    <button class="btn btn-primary col-12" type="submit">Submit form</button>
+
+   </form>
+
+
+
+
+
+
+
+
+  </div>
+
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script>
+
+
+
+   // Example starter JavaScript for disabling form submissions if there are invalid fields
+//for bootsrap
+
+
+
+
+//  
+//   $("#inputPasswordConfirm").on("keyup", function ()
+//   {
+//    if ( $("#inputPasswordConfirm").val == $("#inputPassword").val)
+//    {
+//      $("#inputPasswordConfirm").css("color", "green");
+//
+//     $(".error").removeClass("error").addClass("invalid-feedback").addClass("mes");
+//    }
+//    else
+//    {
+//      $("#inputPasswordConfirm").css("color", "red");
+//     $(".mes").addClass("error").removeClass("invalid-feedback");
+//
+//    }
+//
+//
+//   });
+
+
+
+
+   (function ()
+   {
+    'use strict';
+    window.addEventListener('load', function ()
+    {
+     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+     var forms = document.getElementsByClassName('needs-validation');
+     // Loop over them and prevent submission
+     var validation = Array.prototype.filter.call(forms, function (form)
+     {
+      form.addEventListener('submit', function (event)
+      {
+       if (form.checkValidity() === false)
+       {
+        event.preventDefault();
+        event.stopPropagation();
+       }
+       form.classList.add('was-validated');
+      }, false);
+     });
+    }, false);
+   })();
+
+
+
+
+
+  </script>
+ </body>
+</html>
