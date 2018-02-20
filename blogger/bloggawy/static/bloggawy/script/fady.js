@@ -27,10 +27,10 @@ $(".sub").on("click",function(e){
 				},
 				// dataType : 'json',
 				success:function(resp){
-					alert(resp);
+
 				},
 				error:function(resp){
-					alert(resp)
+
 				} 
 
 			});
@@ -48,3 +48,4 @@ $(".sub").on("click",function(e){
 		}
 			
 	});
+

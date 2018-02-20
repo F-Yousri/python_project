@@ -105,7 +105,6 @@ def dislike(request, post_id):
 			like_type=False
 		)
 		like_object.save()
-	# ToDo i want to delete the post if the post have greater than 10 likes
 	check_dislikes_counter = Like.objects.filter(like_post=current_post, like_type=False).count()
 	if check_dislikes_counter > 10:
 		current_post.delete()
@@ -176,6 +175,13 @@ def create(request):
 				category_id=category_id,
 				user_id=user_id
 			)
+
+			subject = "welcome"
+			message = "Hello " + request.POST['username'] + " you have subscribed successfully in " + request.GET['category'] + " welcome aboard"
+			from_mail = settings.EMAIL_HOST_USER
+			to_list = [request.user.email]
+			send_mail(subject, message, from_mail, to_list, fail_silently=True)
+
 		# a1.save()
 		# a1.subscribers.add(p1)
 		# # a1.save()
@@ -237,6 +243,23 @@ def success(request):
 def error(request):
 	return render(request, "web/error.html")
 
+
+def get_post(request):
+	if requst.is_ajax():
+		q = request.GET.get('term', '')
+		posts = Post.objects.filter(Q(tag_posts=Tag.objects.get(tag_name__icontains=q)) | Q(post_title__icontains=q))
+		results = []
+		for pl in posts:
+			post_json = {}
+			post_json['id'] = pl.id;
+			post_json['label'] = pl.post_title;
+			results.append(post_json)
+			data = json.dumps(results)
+	else:
+		data='fail'
+	mimetype = 'application/json'
+	return HttpResponse(data, mimetype)
+
 def registration(request):
 
 	if request.method == 'POST':
@@ -257,7 +280,7 @@ def registration(request):
 			raw_email= form.cleaned_data.get('email')
 			user = authenticate(username=username, password=raw_password,email=raw_email)
 			login(request, user)
-			return redirect('web/home.html')
+			return HttpResponseRedirect("/bloggawy/home")
 		else:
 			error=1
 

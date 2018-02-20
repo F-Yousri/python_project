@@ -40,7 +40,7 @@ class PostForm(forms.ModelForm):
 class SignUpForm(UserCreationForm):
 
 
-	email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+	# email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
 
 	class Meta:
@@ -74,27 +74,27 @@ class CommentForm(forms.ModelForm):
 		}
 
 class ReplyForm(forms.ModelForm):
-    def ReplySave (self, current_post, current_user,comment):
-        reply = self.save(commit=False)
-        reply.reply_post = current_post
-        reply.reply_user = current_user
-        reply.reply_comments = comment
-        reply.save()  # to save in database
+	def ReplySave (self, current_post, current_user,comment):
+		reply = self.save(commit=False)
+		reply.reply_post = current_post
+		reply.reply_user = current_user
+		reply.reply_comments = comment
+		reply.save()  # to save in database
 
-    class Meta:
-        model = Reply
-        fields = ('reply_content',)
-        widgets = {
-            'reply_content': forms.Textarea(attrs={
-                'class': 'form-control-lg col-sm-2 col-md-6',
-                'word-break': 'break-word',
-                'placeholder': 'Write a reply',
-                'rows':'1',
-                'col':'69'
+	class Meta:
+		model = Reply
+		fields = ('reply_content',)
+		widgets = {
+			'reply_content': forms.Textarea(attrs={
+				'class': 'form-control-lg col-sm-2 col-md-6',
+				'word-break': 'break-word',
+				'placeholder': 'Write a reply',
+				'rows':'1',
+				'col':'69'
 
-            }),
+			}),
 
-        }
+		}
 class SignUpForm(UserCreationForm):
    
 	email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')

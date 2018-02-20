@@ -4,8 +4,8 @@
     align-items: stretch;
 	} 
 	#sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 30px;
+    max-width: 300px;
 	}
 
 	#sidebar.active {
@@ -25,8 +25,8 @@
     content: '\e260';
 	}
 	#sidebar {
-	    min-width: 250px;
-	    max-width: 250px;
+	    min-width: 150px;
+	    max-width: 300px;
 	    min-height: 100vh;
 	}	
 
@@ -51,19 +51,19 @@
 
 	#sidebar {
 	    /* don't forget to add all the previously mentioned styles here too */
-	    background: #7386D5;
+	    background: #37474F;
 	    color: #fff;
 	    transition: all 0.3s;
 	}
 
 	#sidebar .sidebar-header {
 	    padding: 20px;
-	    background: #6d7fcc;
+	    background: #37474F;
 	}
 
 	#sidebar ul.components {
 	    padding: 20px 0;
-	    border-bottom: 1px solid #47748b;
+	    border-bottom: 1px solid #37474F;
 	}
 
 	#sidebar ul p {
@@ -78,12 +78,12 @@
 	}
 	#sidebar ul li a:hover {
 	    color: #7386D5;
-	    background: #fff;
+	    background:#37474F;
 	}
 
 	#sidebar ul li.active > a, a[aria-expanded="true"] {
 	    color: #fff;
-	    background: #6d7fcc;
+	    background: #37474F;
 	}
 	ul ul a {
 	    font-size: 0.9em !important;

@@ -42,5 +42,6 @@ urlpatterns = [
     url(r'^home$', views.home),
     url(r'^logout$', views.logout),
     url(r'^create$', views.create),
+    url(r'^get_post/',views.get_post,name='get_post'),
 ]
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

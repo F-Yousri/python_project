@@ -57,6 +57,10 @@
     </div>
 
 </nav>
+   <div class="ui-widget col-3">
+        <label for="posts">Search</label>
+        <input id="posts">
+    </div>
 <!-- Navigation Bar -->
 <div class=" container">
     <div class="container container">
@@ -317,6 +321,17 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- my javascript code -->
 <script src="{% static 'bloggawy/includes/postpagejs.js' %}"></script>
+<script>
+   $(function(){
+    $('#posts').autocomplete({
+       source:"get_post/",
+       select: function (event, ui) {
+            window.location ="/bloggawy/post/" + ui.item.id
+        },
+       minLength: 2,
+    });
+    });
+    </script>
 </body>
 <!-- {% endblock %} -->
 </html>

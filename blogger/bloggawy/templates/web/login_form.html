@@ -1,109 +1,83 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login Page</title>
-    <title>Login Template</title> 
-     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> 
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <title>login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-        .loginbox{
-    margin-top:50px;
-}
-.forgot-password{
-    float:right; 
-    font-size: 80%; 
-    position: relative; 
-    top:-10px;
-}
-.panel-pad{
-    padding-top:30px;
-}
-.login-alert{
-    display:none;
-}
-.margT25{
-    margin-bottom: 25px;
-}
-.margT10{
-    margin-top:10px;
-}
-.margL10{
-    padding-left: 25px;
-}
-.no-acc{
-    border-top: 1px solid#888; padding-top:15px; font-size:85%;
-}
-.signup-box{
-    display:none; margin-top:50px;
-}
-.signup-fb{
-    border-top: 1px solid #999; padding-top:20px;
-}
-.signin{
-    float:right; font-size: 85%; position: relative; top:-10px;
-}
-.btn-facebook {
-  color: #fff;
-  background-color: #3b5998;
-  border-color: #3b5998;
-}
-.btn-facebook:hover,
-.btn-facebook:focus,
-.btn-facebook:active,
-.btn-facebook.active,
-.open > .dropdown-toggle.btn-facebook {
-  color: #fff;
-  background-color: #3b5998;
-  border-color: #3b5998;
-}
-.btn-google {
-  color: #fff;
-  background-color: #dd4b39;
-  border-color: #dd4b39;
-}
-.btn-google:hover,
-.btn-google:focus,
-.btn-google:active,
-.btn-google.active,
-.open > .dropdown-toggle.btn-google {
-  color: #fff;
-  background-color: #dd4b39;
-  border-color: #dd4b39;
-}
-.btn-twitter {
-  color: #fff;
-  background-color: #00aced;
-  border-color: #00aced;
-}
-.btn-twitter:hover,
-.btn-twitter:focus,
-.btn-twitter:active,
-.btn-twitter.active,
-.open > .dropdown-toggle.btn-twitter {
-  color: #fff;
-  background-color: #00aced;
-  border-color: #00aced;
-}
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/favicon.ico' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/font-awesome.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/material-design-iconic-font.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/animate.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/hamburgers.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/animsition.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/select2.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/daterangepicker.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/main.css' %}" />
+  <link rel="stylesheet" type="text/css" href= "{% static 'css/util.css' %}" />
 
-
-
-    </style> 
 </head>
 <body>
-<div class="container">
-    <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 loginbox"> 
-        <div class="panel panel-info" > 
-            <div class="panel-heading"> 
-                <div class="panel-title"> Sign In </div> 
-                <div class="forgot-password"> <a href="#">Forgot password?</a> </div> 
-            </div> 
-            <div class="panel-body panel-pad"> 
-                <div id="login-alert" class="alert alert-danger col-sm-12 login-alert"></div> 
-                    <form id="loginform" class="form-horizontal" role="form" method="POST">{% csrf_token %}
+
+  <div class="limiter">
+    <div class="container-login100" style="background-image: url('{% static 'images/bg-01.jpg' %}');">
+      <div class="wrap-login100">
+
+    <form class="login100-form validate-form" method="post">
+               {% csrf_token %}
+
+          <span class="login100-form-logo">
+            <i class="fa fa-bitcoin"></i>
+          </span>
+
+          <span class="login100-form-title p-b-34 p-t-27">
+            Login
+          </span>
+
+
+          <div class="wrap-input100 validate-input" data-validate = "Enter username">
+            <input class="input100" type="text" name="username" placeholder="Username">
+            <span class="focus-input100"></span>
+          </div>
+
+
+          <div class="wrap-input100 validate-input" data-validate="Enter password">
+            <input class="input100" type="password" name="password" placeholder="Password">
+            <span class="focus-input100"></span>
+          </div>
+
+
+          <div class="checkbox"> 
+              <label> 
+                  <input id="login-remember" type="checkbox" name="remember" value="1"> 
+                  <span style="color:white;">Remember me</span>
+                  <br/>
+                  <br/>
+              </label> 
+          </div> 
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn">
+              Login
+            </button>
+          </div>
+
+          <div class="text-center p-t-90">
+            <a class="txt1" href="#">
+              Forgot Password?
+            </a>
+          </div>
+  </form>
+
+
+      </div>
+    </div>
+  </div>
+
+<!-- 
                         <div class="form-group"> 
                      
                         </div>  
@@ -125,7 +99,7 @@
                             </div> 
                         </div> 
                         <div class="form-group margT10"> 
-                        <!-- Button --> 
+                        
                             <div class="col-sm-12 controls"> 
                                 <input class="btn btn-block btn-primary" type="submit" value="Login">
                             </div> 
@@ -145,7 +119,22 @@
                 </div> 
             </div> 
         </div> 
-    </div>
+    </div> -->
+
+
+
+     <div id="dropDownSelect1"></div>
+  
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/animsition.min.js' %}"></script>
+<script src="{% static 'js/popper.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/select2.min.js' %}"></script>
+<script src="{% static 'js/moment.min.js' %}"></script>
+<script src="{% static 'js/daterangepicker.js' %}"></script>
+<script src="{% static 'js/countdowntime.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
 
 </body>
 </html>
