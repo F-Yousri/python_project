@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
+from django.core.mail import send_mail
 from  .forms import SignUpForm
 from  .forms import CategoryForm
 from  .forms import PostForm
@@ -130,7 +132,7 @@ def new_post(request):
 	return render(request, "posts/new.html", {"form": form, "all_cats": Category.objects.all()})
 
 def index(request):
-	return render(request, "web/index.html")  # http://127.0.0.1:8000/opensource/
+	return render(request, "web/index.html")
 
 
 def success(request):
@@ -144,14 +146,26 @@ def registration(request):
 
 	if request.method == 'POST':
 		form = SignUpForm(request.POST)
-		if form.is_valid()  and not User.objects.filter(email=request.POST['email']):
-			form.save()
+		if form.is_valid():
+			checkmail=User.objects.filter(email=request.POST['email'])
+			if checkmail.exists():
+				return render(request, 'web/registration.html',{"form": form,"errormail":1})
+			save_it =form.save()
+			save_it.save()
+			subject = "welcome"
+			message = "Hello " + request.POST['username'] +" you have subscribed successfully in -category name-  welcome aboard"
+			from_mail = settings.EMAIL_HOST_USER
+			to_list = [save_it.email]
+			send_mail(subject,message,from_mail,to_list,fail_silently=True)
 			username = form.cleaned_data.get('username')
 			raw_password = form.cleaned_data.get('password1')
 			raw_email= form.cleaned_data.get('email')
 			user = authenticate(username=username, password=raw_password,email=raw_email)
 			login(request, user)
 			return redirect('web/home.html')
+		else:
+			error=1
+
 	else:
 		form = SignUpForm()
 	return render(request, 'web/registration.html',{"form": form})

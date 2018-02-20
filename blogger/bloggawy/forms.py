@@ -11,7 +11,7 @@ from  .models import Tag
 
 class UserForm(UserCreationForm):
 
-	email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+	#email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
 	class Meta:
 		model = User
@@ -43,6 +43,15 @@ class SignUpForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ('username', 'email', 'password1', 'password2')
+	def clean(self):
+		cd = self.cleaned_data
+		if User.objects.filter(cd.get('email')):
+			self.add_error('email_duplication', "email already registered!")
+			return cd
+		# error_messages={
+		# 'unique':'this email is already registered',
+		# 'duplicate_username': 'This username is already in use',
+		# }
 
 class CommentForm(forms.ModelForm):
 	def CommentSave (self, current_post, current_user):
