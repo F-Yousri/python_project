@@ -2,7 +2,7 @@
 <!-- {% load static %} -->
 {% block body %}
 <!DOCTYPE html>
-<!-- {% load staticfiles %} -->
+{% load static %}
 <html>
 <head>
 
@@ -12,7 +12,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 
 
@@ -34,8 +33,6 @@
 
 <body>
 <!-- Navigation Bar -->
- 
- 
 <nav class=" sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -60,73 +57,83 @@
     </div>
 
 </nav>
-<br>
-<div class="ui-widget">
-    <label for="posts">Search</label>
-    <input id="posts">
-    
-</div>
-
-<div class="container">
-    <div class="row mt-5">
-
-        <!-- Sidebar -->
-        <div class="list-group col-4 col-xl-3 mt-2">
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">List group item heading</h5>
-                    <small>3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-                    blandit.</p>
-                <small>Donec id elit non mi porta.</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">List group item heading</h5>
-                    <small class="text-muted">3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-                    blandit.</p>
-                <small class="text-muted">Donec id elit non mi porta.</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">List group item heading</h5>
-                    <small class="text-muted">3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-                    blandit.</p>
-                <small class="text-muted">Donec id elit non mi porta.</small>
-            </a>
-        </div>
-        <!-- Article -->
-        <div class="text-center col-8 col-xl-9 mt-2">
-            <h1>Title of the post</h1>
-            <div style="height:500px">
-                <img class="mw-100 mh-100" src= "{% static 'bloggawy/images/technology1.jpg'%}" ></img>
+<!-- Navigation Bar -->
+<div class=" container">
+    <div class="container container">
+        <div class="row mt-5">
+            <div class="list-group col-4 col-xl-3 mt-2">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small>3 days ago</small>
+                    </div>
+                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
+                        varius
+                        blandit.</p>
+                    <small>Donec id elit non mi porta.</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
+                        varius
+                        blandit.</p>
+                    <small class="text-muted">Donec id elit non mi porta.</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
+                        varius
+                        blandit.</p>
+                    <small class="text-muted">Donec id elit non mi porta.</small>
+                </a>
             </div>
-            <p class="mt-1">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                
-               
-                vel illum qui dolorem eum fugiat quo voluptas nulla pariatur</p>
+            <!-- Article -->
+            <div class=" col-8 col-xl-9 mt-2">
+
+                <div class="card mb-3">
+
+                    <img class="card-img-top mw-100 mh-100"
+                         src="{%static 'bloggawy/images/'%}{{current__post.post_photo}} "
+                         alt="Card image cap">
+
+
+                    <div class="card-body mt-4">
+                        <h1 class="card-title text-center">{{current__post.post_title}}</h1>
+                        <p class="card-text mt-4">{{current__post.post_content|linebreaksbr}}</p>
+                        <p class="card-text mt-4">
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                By : {{current__post.post_user}} &#9679;
+
+                                <small class="text-muted">{{current__post.post_time}}</small>
+                            </div>
+                        </div>
+
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+
         </div>
+
     </div>
+    <!-- Article -->
 
 
-    <br/><br/><br/><br/><br/>
-
-
-    <center>
-
-
-    </center>
-
-
-    <div class="card">
+    <div class="card mt-4 container">
         <div class="card-header text-center">
 
-
+            {% if user.is_authenticated %}
             <div class="container">
                 <div class="btn-group"></div>
                 <div class="btn btn-success btn-lg active like">
@@ -146,13 +153,13 @@
                     <span id="dislikecount" class="badge badge-light">{{ dislikes }}</span>
                 </div>
             </div>
-
+            {% endif %}
 
         </div>
         <div class="card-body text-center">
             <p class="card-text">
 
-
+                {% if user.is_authenticated %}
             <form method="POST">{% csrf_token %}
                 {{ form.errors }}
                 {{ form.comment_content }}
@@ -165,7 +172,7 @@
 
             </form>
 
-
+            {% endif %}
             </p>
 
         </div>
@@ -182,16 +189,70 @@
                     <img data-src="holder.js/32x32?theme=thumb&amp;
             bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32"
                          class="mr-2 rounded" style="width: 32px;
-                  height: 32px;" src="{%  static 'bloggawy/images/commentphoto.png' %}" data-holder-rendered="true">
+            height: 32px;" src="{%  static 'bloggawy/images/commentphoto.png' %}" data-holder-rendered="true">
                     <p style='padding: 3px; word-break: break-all; word-wrap: break-word;'
-                       class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray col-6 col-md-8" width="100">
+                       class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray col-6 col-md-8"
+                       width="100">
                         <strong class="d-block text-gray-dark">@{{comment.comment_user.username}} on
                             {{comment.comment_time}}</strong>
 
                         {{ comment.comment_content|linebreaksbr }}
 
+
                     </p>
+
+
                 </div>
+
+                <div class="comment_replies">
+                    <!----reply----->
+                    {% if user.is_authenticated %}
+                    <p class="card-text">
+
+
+                    <form method="POST">{% csrf_token %}
+                        {{ formr.errors }}
+                        {{ formr.reply_content }}
+
+                        <div>
+                            <input id="numb" name="numb" type="number" style="display:None"
+                                   value="{{ comment.id }}"/>
+                            <button type="submit" class="btn btn-primary btn-sm mb-2">Add replay</button>
+                        </div>
+
+
+                    </form>
+                    </p>
+                    {% endif %}
+                    <!--------->
+
+
+                    {% for reply in replies %}
+                    {% if comment.id == reply.reply_comments_id %}
+                    <!-- repley -->
+                    <div class="container" style="margin-left: 30px;">
+                        <div class="media text-muted  mt-3">
+                            <img data-src="holder.js/32x32?theme=thumb&amp;
+              bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32"
+                                 class="mr-2 rounded" style="width: 32px;
+              height: 32px;" src="{%  static 'bloggawy/images/reply.png' %}" data-holder-rendered="true">
+                            <p style='padding: 3px; word-break: break-all; word-wrap: break-word;'
+                               class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray col-6 col-md-8"
+                               width="100">
+                                <strong class="d-block text-gray-dark">@{{reply.reply_user.username}} on
+                                    {{reply.reply_time}} test</strong>
+
+                                {{ reply.reply_content|linebreaksbr }}
+
+                            </p>
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <!-- repley -->
 
                 {% endfor %}
 
@@ -207,9 +268,11 @@
 
         </div>
     </div>
+</div>
 
 
-    <!-- Pagination -->
+<!-- Pagination -->
+<div class="container container mt-4 align-center">
     <div class="row">
         <div class="col-6"></div>
         <div class="text-center col-6">
@@ -235,108 +298,25 @@
         </div>
     </div>
 </div>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
 <!-- jQuery UI !-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-
-
-<script>
-    $(function(){
-        
-    $('#posts').autocomplete({
-       source:"get_post/",
-
-       select: function (event, ui) {
-            window.location ="/bloggawy/post/" + ui.item.id
-        },
-       minLength: 2,
-    });
-
-   
-     
-    $('#id_comment_content').on("keyup", function () {
-        var maxrows = 10;
-        var txt = this.value;
-        var cols = this.cols;
-
-        var arraytxt = txt.split('\n');
-        var rows = arraytxt.length;
-
-        for (i = 0; i < arraytxt.length; i++) {
-            rows += parseInt(arraytxt[i].length / cols);
-        }
-
-        if (rows > maxrows) {
-            this.rows = maxrows;
-        }
-        else {
-            this.rows = rows;
-        }
-    });
-
-    var like_status = "";
-
-    $(".like").on("click", function (event) {
-
-        if ($(".like-text").html() == "like") {
-            if ($(".dislike-text").html() == "disliked") {
-                $(".dislike-text").html("dislike");
-                $("#dislikecount").html(parseInt($("#dislikecount").html()) - 1);
-
-            }
-            $(".like-text").html("liked");
-            $("#likecount").html(parseInt($("#likecount").html()) + 1);
-        }
-        else {
-            $(".like-text").html("like");
-            $("#likecount").html(parseInt($("#likecount").html()) - 1);
-        }
-
-
-        var url = window.location + "/like/";
-        //alert(url);
-        $.ajax({
-            url: url,
-            success: function () {
-                // alert("like done");
-            }
-        });
-
-
-    });
-
-    $(".dislike").on("click", function (event) {
-
-        if ($(".dislike-text").html() == "dislike") {
-            if ($(".like-text").html() == "liked") {
-                $(".like-text").html("like");
-                $("#likecount").html(parseInt($("#likecount").html()) - 1);
-            }
-            $(".dislike-text").html("disliked");
-            $("#dislikecount").html(parseInt($("#dislikecount").html()) + 1);
-
-        }
-        else {
-            $(".dislike-text").html("dislike");
-            $("#dislikecount").html(parseInt($("#dislikecount").html()) - 1);
-        }
-
-        var url = window.location + "/dislike/";
-        //alert(url);
-        $.ajax({
-            url: url,
-            success: function () {
-                // alert("dislike done");
-            }
-        });
-
-    });
-});
-</script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!-- this file since the bootstarb file of jquery have problem with ajax -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- my javascript code -->
+<script src="{% static 'bloggawy/includes/postpagejs.js' %}"></script>
 </body>
 <!-- {% endblock %} -->
 </html>

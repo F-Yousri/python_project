@@ -1,4 +1,4 @@
-  <style type="text/css">
+
   	.wrapper {
     display: flex;
     align-items: stretch;
@@ -127,4 +127,3 @@
 #myBtn:hover {
     background-color: #555; /* Add a dark-grey background on hover */
 }
-  </style>

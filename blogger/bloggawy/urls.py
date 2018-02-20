@@ -37,7 +37,10 @@ urlpatterns = [
     url(r'^(?P<st_id>[0-9]+)/edittag$',views.edittag),
     url(r'^promote/(?P<us_id>[0-9]+)$', views.promote),
     url(r'^block/(?P<us_id>[0-9]+)$', views.block),
-    url(r'^post/get_post/',views.get_post,name='get_post')
-
+    url(r'^post/get_post/',views.get_post,name='get_post'),
+    url(r'^login_form$',views.login_form),
+    url(r'^home$', views.home),
+    url(r'^logout$', views.logout),
+    url(r'^create$', views.create),
 ]
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

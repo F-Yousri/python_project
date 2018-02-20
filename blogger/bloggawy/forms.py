@@ -1,3 +1,4 @@
+
 from django import forms
 from .models import Post
 from .models import Comment
@@ -7,6 +8,8 @@ from django.contrib.auth.models import User
 from  .models import Category
 from  .models import Curse
 from  .models import Tag
+from .models import Reply
+
 
 
 class UserForm(UserCreationForm):
@@ -48,10 +51,6 @@ class SignUpForm(UserCreationForm):
 		if User.objects.filter(cd.get('email')):
 			self.add_error('email_duplication', "email already registered!")
 			return cd
-		# error_messages={
-		# 'unique':'this email is already registered',
-		# 'duplicate_username': 'This username is already in use',
-		# }
 
 class CommentForm(forms.ModelForm):
 	def CommentSave (self, current_post, current_user):
@@ -74,20 +73,28 @@ class CommentForm(forms.ModelForm):
 			}),
 		}
 
+class ReplyForm(forms.ModelForm):
+    def ReplySave (self, current_post, current_user,comment):
+        reply = self.save(commit=False)
+        reply.reply_post = current_post
+        reply.reply_user = current_user
+        reply.reply_comments = comment
+        reply.save()  # to save in database
 
+    class Meta:
+        model = Reply
+        fields = ('reply_content',)
+        widgets = {
+            'reply_content': forms.Textarea(attrs={
+                'class': 'form-control-lg col-sm-2 col-md-6',
+                'word-break': 'break-word',
+                'placeholder': 'Write a reply',
+                'rows':'1',
+                'col':'69'
 
+            }),
 
-
-# class ModelName(forms.ModelForm):
-#     class Meta:
-#         model = ModelName  # modify
-#         fields = ('fieldname', 'fieldname', 'fieldname', 'fieldname')
-#         widgets = {
-#             'fieldname': forms.TextInput(attrs={'class': 'form-control'}),
-#             'fieldname': forms.TextInput(attrs={'class': 'form-control'}),
-#             'fieldname': forms.TextInput(attrs={'class': 'form-control'}),
-#         }
-
+        }
 class SignUpForm(UserCreationForm):
    
 	email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')

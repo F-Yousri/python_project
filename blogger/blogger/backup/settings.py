@@ -110,6 +110,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+<<<<<<< HEAD:blogger/blogger/settings.py
 STATIC_URL = os.path.join(BASE_DIR, 'bloggawy/static/bloggawy/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'bloggawy/static/bloggawy/images/')
 MEDIA_URL = '/bloggawy/images/'
+=======
+STATIC_URL = '/static/'
+>>>>>>> development:blogger/blogger/backup/settings.py
