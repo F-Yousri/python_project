@@ -49,11 +49,11 @@
 
 
         var url = window.location + "/like/";
-        //alert(url);
+        ///alert(url);
         $.ajax({
             url: url,
             success: function () {
-                // alert("like done");
+                //alert("like done");
             }
         });
 

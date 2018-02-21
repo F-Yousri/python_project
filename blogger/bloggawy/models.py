@@ -60,29 +60,35 @@ class Comment(models.Model):
                 new_words.append(word)
         self.comment_content=" ".join(new_words)
 
-class ReplyForm(forms.ModelForm):
-    def ReplySave (self, current_post, current_user,comment):
-        reply = self.save(commit=False)
-        reply.reply_post = current_post
-        reply.reply_user = current_user
-        reply.reply_comments = comment
-        reply.replacecurse()
-        reply.save()  # to save in database
 
-    class Meta:
-        model = Reply
-        fields = ('reply_content',)
-        widgets = {
-            'reply_content': forms.Textarea(attrs={
-                'class': 'form-control-lg col-sm-2 col-md-6',
-                'word-break': 'break-word',
-                'placeholder': 'Write a reply',
-                'rows':'1',
-                'col':'69'
+class Reply(models.Model):
+    reply_content = models.CharField(max_length=1000)
+    reply_time = models.DateTimeField(auto_now_add=True)
+    # we can make enhancement here
+    reply_user = models.ForeignKey(User)
+    # reply_comments = models.ManyToManyField(Comment)
+    reply_comments = models.ForeignKey(Comment, null=True)
 
-            }),
+    def replacecurse(self):
+        words = self.reply_content.split()
+        all_bad_words = Curse.objects.all()
+        bads = []
+        new_words=[]
+        for bad in all_bad_words:
+            bads.append(bad.curse_content)
+        for word in words:
+            if findindex(bads, word) != -1:
+                stars = '*' * len(word)
+                word = stars
+                new_words.append(word)
+            else :
+                new_words.append(word)
+        self.reply_content=" ".join(new_words)
 
-        }
+
+    def __str__(self):
+        return self.reply_content
+
 
 
 class Curse(models.Model):
