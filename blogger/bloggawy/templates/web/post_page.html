@@ -7,10 +7,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Bloggawy</title>
 
-    <title>
-        Bloggawy
-    </title>
 </head>
 
   <body>
@@ -29,12 +27,12 @@
 
       <li class="nav-item">
         {% if user.is_authenticated %}
-        <a class="nav-link" href="logout">logout</a>
+        <a class="nav-link" href="/bloggawy/logout">logout</a>
         {% endif %}
       </li>
       {% if user.is_staff %}
       <li class="nav-item">
-        <a class="nav-link" href="#">admin access</a>
+        <a class="nav-link" href="/bloggawy/adminpanel">admin access</a>
       </li>
       {% endif %}
           <li class="nav-item  ">
@@ -84,11 +82,25 @@
                     <div class="card-body mt-4">
                         <h1 class="card-title text-center">{{current__post.post_title}}</h1>
                         <p class="card-text mt-4">{{current__post.post_content|linebreaksbr}}</p>
+
+                            <p class="card-text mt-4">
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                Category :
+                                <small class="text-muted">{{current__post_category.category_name}}</small>
+                            </div>
+                        </div>
+
+                        </p>
                         <p class="card-text mt-4">
+
+
                         <div class="card">
                             <div class="card-body">
                                 By : {{current__post.post_user}} &#9679;
-                                <small class="text-muted">{{current__post.post_time}}</small>
+                                <small class="text-muted"> {{current__post.post_time}}</small>
                             </div>
                         </div>
 
@@ -187,7 +199,7 @@
                                class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray col-6 col-md-8"
                                width="100">
                                 <strong class="d-block text-gray-dark">@{{reply.reply_user.username}} on
-                                    {{reply.reply_time}} test</strong>
+                                    {{reply.reply_time}}</strong>
                                 {{ reply.reply_content|linebreaksbr }}
 
                             </p>
@@ -206,10 +218,10 @@
             </div>
 
             <!--enhancement make the url with ajax-->
-            <small class="d-block text-right mt-3">
-                <!--this is enhancement-->
-                <a href="#">All comments</a>
-            </small>
+            <!--<small class="d-block text-right mt-3">-->
+                <!--&lt;!&ndash;this is enhancement&ndash;&gt;-->
+                <!--<a href="#">All comments</a>-->
+            <!--</small>-->
         </div>
     </div>
 </div>

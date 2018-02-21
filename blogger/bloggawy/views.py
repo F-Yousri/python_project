@@ -22,6 +22,7 @@ from .forms import ReplyForm
 from .forms import TagForm
 from .models import Like
 from .models import Reply
+from .models import Category
 from django.core.exceptions import ObjectDoesNotExist
 import json
 from django.db.models import Q
@@ -31,28 +32,6 @@ from django.contrib.auth import logout as django_logout
 # from django.http import JsonResponse
 
 # just for store the like in the model
-
-def check_super(request):
-    # return HttpResponse(request.user.id)
-    if request.user.is_superuser:
-        pass
-    else:
-        return HttpResponseRedirect("/bloggawy/home")
-
-
-def get_post(request):
-    q = request.GET.get('term', '')
-    posts = Post.objects.filter(Q(tag_posts=Tag.objects.get(tag_name__icontains=q)) | Q(post_title__icontains=q))
-    results = []
-    for pl in posts:
-        post_json = {}
-        post_json['id'] = pl.id;
-        post_json['label'] = pl.post_title;
-        results.append(post_json)
-        data = json.dumps(results)
-
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
 
 
 def like(request, post_id):
@@ -83,6 +62,7 @@ def like(request, post_id):
 # just for store the dislike in the model
 def dislike(request, post_id):
     current_post = Post.objects.get(id=post_id)
+
     if request.user.is_authenticated():
         current_user = request.user
     else:
@@ -106,6 +86,91 @@ def dislike(request, post_id):
     if check_dislikes_counter > 10:
         current_post.delete()
     return HttpResponse("Dislike Done");
+
+# view post
+def post_page(request, post_id):
+    comment_form = CommentForm()
+    reply_form = ReplyForm()
+    try:
+        current_post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        pass
+        return render(request, "web/errorpostpage.html")
+    if request.user.is_authenticated():
+        current_user = request.user
+    else:
+        current_user = None
+
+    if request.method == "POST":
+        reply_form = ReplyForm(request.POST)
+        comment_form = CommentForm(request.POST, initial={'comment_post_id': post_id})
+        if comment_form.is_valid():
+            comment_form.CommentSave(current_post, current_user)
+            return HttpResponseRedirect("" + post_id)
+        if reply_form.is_valid():
+            comment = Comment.objects.get(id=request.POST.get('numb'))
+            reply_form.ReplySave(current_post, current_user, comment)
+            return HttpResponseRedirect("" + post_id)
+
+    comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-id')
+    try:
+        like_status = Like.objects.get(like_post=current_post, like_user=current_user)
+    except ObjectDoesNotExist:
+        like_status = None
+    try:
+        all_replies = Reply.objects.all()
+    except ObjectDoesNotExist:
+        all_replies = None
+
+    like_count = Like.objects.filter(like_type=True, like_post=current_post).count()
+    dislike_count = Like.objects.filter(like_type=False, like_post=current_post).count()
+    try:
+        three_recent_posts = Post.objects.all().order_by('-id')[:3]
+    except ObjectDoesNotExist:
+        three_recent_posts = None
+
+    current_post_category = Category.objects.get(id=current_post.post_category_id)
+
+
+    context = {
+        "current__post": current_post,
+        "current__post_category": current_post_category,
+        "form": comment_form,
+        "formr": reply_form,
+        "comments": comments_of_post,
+        "replies": all_replies,
+        "like": like_status,
+        "likes": like_count,
+        "dislikes": dislike_count,
+        "recentposts": three_recent_posts,
+
+    }
+
+    return render(request, "web/post_page.html", context)
+
+def check_super(request):
+    # return HttpResponse(request.user.id)
+    if request.user.is_superuser:
+        pass
+    else:
+        return HttpResponseRedirect("/bloggawy/home")
+
+
+def get_post(request):
+    q = request.GET.get('term', '')
+    posts = Post.objects.filter(Q(tag_posts=Tag.objects.get(tag_name__icontains=q)) | Q(post_title__icontains=q))
+    results = []
+    for pl in posts:
+        post_json = {}
+        post_json['id'] = pl.id;
+        post_json['label'] = pl.post_title;
+        results.append(post_json)
+        data = json.dumps(results)
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
+
+
 
 
 def home(request):
@@ -193,8 +258,8 @@ def create(request):
 #     return render(request, "posts/all_p.html", {"home": Post.objects.all()})
 
 
-# def post_details(request, p_id):
-#     return render(request, "posts/post_page.html", {"post": Post.objects.get(id=p_id)})
+def post_details(request, p_id):
+    return render(request, "posts/post_page.html", {"post": Post.objects.get(id=p_id)})
 
 
 def new_post(request):
@@ -225,62 +290,7 @@ def new_post(request):
     return render(request, "posts/new.html", {"form": form, "all_cats": Category.objects.all()})
 
 
-# view post
-def post_page(request, post_id):
-    comment_form = CommentForm()
-    reply_form = ReplyForm()
-    try:
-        current_post = Post.objects.get(id=post_id)
-    except Post.DoesNotExist:
-        pass
-    #     #return render(request, "web/errorpostpage.html")
-    if request.user.is_authenticated():
-        current_user = request.user
-    else:
-        current_user = None
 
-    if request.method == "POST":
-        reply_form = ReplyForm(request.POST)
-        comment_form = CommentForm(request.POST, initial={'comment_post_id': post_id})
-
-        if comment_form.is_valid():
-            comment_form.CommentSave(current_post, current_user)
-            return HttpResponseRedirect("" + post_id)
-        if reply_form.is_valid():
-            comment = Comment.objects.get(id=request.POST.get('numb'))
-            reply_form.ReplySave(current_post, current_user, comment)
-            return HttpResponseRedirect("" + post_id)
-
-    comments_of_post = Comment.objects.filter(comment_post=current_post).order_by('-id')
-    try:
-        like_status = Like.objects.get(like_post=current_post, like_user=current_user)
-    except ObjectDoesNotExist:
-        like_status = None
-    try:
-        all_replies = Reply.objects.all()
-    except ObjectDoesNotExist:
-        all_replies = None
-
-    like_count = Like.objects.filter(like_type=True, like_post=current_post).count()
-    dislike_count = Like.objects.filter(like_type=False, like_post=current_post).count()
-    try:
-        three_recent_posts = Post.objects.all().order_by('-id')[:3]
-    except ObjectDoesNotExist:
-        three_recent_posts = None
-
-    context = {
-        "current__post": current_post,
-        "form": comment_form,
-        "formr": reply_form,
-        "comments": comments_of_post,
-        "replies": all_replies,
-        "like": like_status,
-        "likes": like_count,
-        "dislikes": dislike_count,
-        "recentposts": three_recent_posts,
-    }
-
-    return render(request, "web/post_page.html", context)
 
 
 def get_post(request):

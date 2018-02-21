@@ -1,10 +1,10 @@
 from django.conf.urls import include, url
 from . import views
 urlpatterns = [
-    url(r'^post/(?P<post_id>[0-9]+)$', views.post_page),
-    url(r'^post/new$',views.new_post),
+    url(r'^post/new$', views.new_post),
     url(r'^post/(?P<post_id>[0-9]+)/like/$', views.like),  # for like
     url(r'^post/(?P<post_id>[0-9]+)/dislike/$', views.dislike),  # for dislike
+    url(r'^post/(?P<post_id>[0-9]+)$', views.post_page),
     url(r'^registration$',views.registration),
     url(r'^allusers$',views.allusers),
     url(r'^adminpanel$',views.allposts),
