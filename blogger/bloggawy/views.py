@@ -27,30 +27,6 @@ from django.db.models import Q
 
 from django.contrib.auth import logout as django_logout
 
-
-def like(request, post_id):
-	current_post = Post.objects.get(id=post_id)
-	if request.user.is_authenticated():
-		current_user = request.user
-	else:
-		current_user = None
-	try:
-		current_like_object = Like.objects.get(like_post=current_post,
-											   like_user=current_user)  # state for the current user
-		if current_like_object.like_type == False:
-			current_like_object.like_type = True
-			current_like_object.save()
-		else:
-			current_like_object.delete()
-	except ObjectDoesNotExist:
-		like_object = Like.objects.create(
-			like_user=request.user,
-			like_post=current_post,
-			like_type=True
-		)
-		like_object.save()
-	return HttpResponse("Like Done")
-
 # from django.http import JsonResponse
 
 # just for store the like in the model
