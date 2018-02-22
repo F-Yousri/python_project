@@ -114,9 +114,20 @@
 </div>
 </div>
 
-<!-- <jQuery and Bootstrap JS > -->
 
 
+<script type="text/javascript" src="{% static 'bloggawy/script/fady.js' %}"></script>
+    $(function(){
+
+    $('#posts').autocomplete({
+       source:"get_post/",
+       select: function (event, ui) {
+            window.location ="/bloggawy/post/" + ui.item.id
+        },
+       minLength: 2,
+    });
+    });
+    </script>
 
 </body>
 </html>

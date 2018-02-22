@@ -24,14 +24,8 @@ $(".sub").on("click",function(e){
 					category : $(this).attr("name"),
 					user : $(this).attr("id"),
 					type : $(this).html()
-				},
+				}
 				// dataType : 'json',
-				success:function(resp){
-               }
-				error:function(resp){
-
-				} 
-
 			});
 	});	
 
