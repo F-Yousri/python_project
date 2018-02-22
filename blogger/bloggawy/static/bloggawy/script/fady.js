@@ -27,8 +27,7 @@ $(".sub").on("click",function(e){
 				},
 				// dataType : 'json',
 				success:function(resp){
-
-				},
+               }
 				error:function(resp){
 
 				} 

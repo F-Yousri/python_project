@@ -240,12 +240,14 @@ def create(request):
                 category_id=category_id,
                 user_id=user_id
             )
-
+            user=User.objects.get(id=user_id)
             subject = "welcome"
-            message = "Hello " + request.POST['username'] + " you have subscribed successfully in " + request.GET[
-                'category'] + " welcome aboard"
+            message = "Hello " + request.user.username + " you have subscribed successfully in " + Category.objects.get(id=request.GET[
+                'category']).category_name + " welcome aboard"
+            # message='hello'
             from_mail = settings.EMAIL_HOST_USER
             to_list = [request.user.email]
+            # to_list=['fahdyousri@gmail.com']
             send_mail(subject, message, from_mail, to_list, fail_silently=True)
 
         # a1.save()
