@@ -286,7 +286,7 @@ def new_post(request):
                         tag.tag_name = word
                         tag.save()
                     obj.tag_posts.add(tag)
-        return HttpResponseRedirect('/bloggawy/posts')
+        return HttpResponseRedirect('/bloggawy/allposts')
     return render(request, "posts/new.html", {"form": form, "all_cats": Category.objects.all()})
 
 
