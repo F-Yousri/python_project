@@ -27,6 +27,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 from django.db.models import Q
 from django.contrib.auth import logout as django_logout
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # from django.http import JsonResponse
@@ -177,10 +178,20 @@ def home(request):
     all_categories = Category.objects.all()
     p1 = Category.subscribers.through.objects.filter(user_id=request.user.id)
     p2 = []
+    # try:
+    #     posts = Post.objects.all().order_by('-id')
+    # except Post.DoesNotExis:
+        # posts = None
+    post_list=Post.objects.all().order_by("-post_time")
+    paginator = Paginator(post_list, 5)
+    page=request.GET.get('post')
     try:
-        posts = Post.objects.all().order_by('-id')
-    except Post.DoesNotExis:
-        posts = None
+        posts=paginator.page(page)
+    except PageNotAnInteger:
+        posts=paginator.page(1)
+
+    except EmptyPage:
+        posts=paginator.page(paginator.num_pages)
 
     for i in p1:
         p2.append(i.category_id)
