@@ -334,7 +334,7 @@ def registration(request):
             save_it.save()
             subject = "welcome"
             message = "Hello " + request.POST[
-                'username'] + " you have subscribed successfully in -category name-  welcome aboard"
+                'username'] + " Thank you for joining bloggawy and welcome aboard"
             from_mail = settings.EMAIL_HOST_USER
             to_list = [save_it.email]
             send_mail(subject, message, from_mail, to_list, fail_silently=True)

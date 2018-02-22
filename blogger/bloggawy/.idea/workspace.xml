@@ -106,8 +106,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="245" column="42" lean-forward="false" selection-start-line="245" selection-start-column="42" selection-end-line="245" selection-end-column="42" />
+            <state relative-caret-position="350">
+              <caret line="336" column="32" lean-forward="false" selection-start-line="336" selection-start-column="32" selection-end-line="336" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -441,8 +441,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="245" column="42" lean-forward="false" selection-start-line="245" selection-start-column="42" selection-end-line="245" selection-end-column="42" />
+        <state relative-caret-position="350">
+          <caret line="336" column="32" lean-forward="false" selection-start-line="336" selection-start-column="32" selection-end-line="336" selection-end-column="32" />
           <folding />
         </state>
       </provider>
