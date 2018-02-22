@@ -38,13 +38,13 @@
       </li>
       {% if user.is_staff %}
       <li class="nav-item">
-        <a class="nav-link" href="#">admin access</a>
+        <a class="nav-link" href="adminpanel">admin access</a>
       </li>
       {% endif %}
           <li class="nav-item  ">
         {% if user.is_authenticated %}
 
-        <h3 style="color: red ; margin-left:1500px" > {{user.username}}</h3>
+        <h3 style="color: red ; margin-left:1300px" > {{user.username}}</h3>
         {% else %}
         <a class="nav-link" href="/bloggawy/login_form">login</a>
 
