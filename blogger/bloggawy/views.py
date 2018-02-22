@@ -158,18 +158,22 @@ def check_super(request):
 
 
 def get_post(request):
-    q = request.GET.get('term', '')
-    posts=[]
-    posts = Post.objects.filter(Q(tag_posts=Tag.objects.get(tag_name__icontains=q)) | Q(post_title__icontains=q))
-    # posts = Post.objects.filter(Q(post_title__icontains=q))
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        # posts = []
+        posts = Post.objects.filter(Q(tag_posts=Tag.objects.get(tag_name__icontains=q)) | Q(post_title__icontains=q))
+        # posts = Post.objects.filter(Q(post_title__icontains=q))
 
-    results = []
-    for pl in posts:
-        post_json = {}
-        post_json['id'] = pl.id;
-        post_json['label'] = pl.post_title;
-        results.append(post_json)
-        data = json.dumps(results)
+        results = []
+        for pl in posts:
+            post_json = {}
+            post_json['id'] = pl.id
+            post_json['label'] = pl.post_title
+            results.append(post_json)
+            data = json.dumps(results)
+    else:
+        data = 'fail'
+
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
