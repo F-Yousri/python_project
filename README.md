@@ -2,8 +2,12 @@
 Credits:
 Contributers to bloggawy and their finished tasks:
 - Ahmed Helal:
-   Post page functionality (retreiving posts from data base, adding comments and replies, likes and dislikes (with there page design),      removing post after 10 dislikes and hashing forbidden words)
-   All neccessary validation for the post page
+   Review and edit the model and make it readable 
+   make design bootstrap page for registration page	
+   homepage posts retreiving and display
+   Complete and edit the design for the post page (comments and likes and post sections)
+   Post page functionality (retreiving posts from data base, adding comments and replies, adding likes and dislikes, removing post after 10 dislikes and hashing forbidden words)
+   All neccessary validation for the post page 
 
 -Fadi El-Gawly:
    Home page functionality (home page design, retrieving and organizing posts from db, adding the subscribe/unsubscribe feature using ajax and base HTML )
